@@ -1,0 +1,6 @@
+.bundle/
+.rbx
+*.rbc
+log/*.log
+.rvmrc
+/.idea
