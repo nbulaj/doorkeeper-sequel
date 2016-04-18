@@ -2,9 +2,11 @@ module Doorkeeper
   class Application < Sequel::Model
     set_dataset :oauth_applications
 
+    # TODO: migrate mixin
     include ApplicationMixin
 
     one_to_many :authorized_tokens, class: 'Doorkeeper::AccessToken', conditions: { revoked_at: nil }
+    # TODO: fix relations
     many_to_many :authorized_applications, join_table: :authorized_tokens
 
     def self.column_names_with_table

@@ -6,7 +6,7 @@ Coveralls.wear!
 require 'bundler/setup'
 Bundler.setup
 
-require 'alpha_card'
+# require gem
 
 RSpec.configure do |config|
   config.order = 'random'

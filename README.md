@@ -1,10 +1,10 @@
 # Doorkeeper Sequel ORM extension
 
-**DONT USE IT! CURRENTLY IS UNDER DEVELOPMENT!**
+:fire: :fire: **DONT USE IT! CURRENTLY IS UNDER DEVELOPMENT!** :fire: :fire:
 
 ## Installation
 
-doorkeeper-sequel provides doorkeeper support to Sequel.
+doorkeeper-sequel provides Doorkeeper support to Sequel.
 To start using it, add to your Gemfile:
 
 ``` ruby
@@ -17,6 +17,13 @@ Set the Doorkeeper ORM configuration:
 Doorkeeper.configure do
   orm :sequel
 end
+```
+
+Generate migrations:
+
+```
+rails generate doorkeeper:migration
+```
 
 ## License
 

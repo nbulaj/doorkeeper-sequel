@@ -1,21 +1,23 @@
 $:.push File.expand_path('../lib', __FILE__)
 
-# Maintain your gem's version:
 require 'doorkeeper-sequel/version'
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = 'doorkeeper-sequel'
   spec.version     = DoorkeeperSequel.gem_version
   spec.authors     = ['Nikita Bulaj']
+  gem.date         = '2016-04-19'
   spec.email       = ['bulajnikita@gmail.com']
   spec.homepage    = 'http://github.com/nbulaj/doorkeeper-sequel'
   spec.summary     = 'Doorkeeper Sequel ORM'
   spec.description = spec.summary
   spec.license     = 'MIT'
 
-  spec.files = Dir['lib/**/*', 'LICENSE', 'Rakefile', 'README.md']
+  gem.require_paths = %w(lib config)
+  gem.files = `git ls-files`.split($RS)
   spec.test_files = Dir['spec/**/*']
+
+  gem.required_ruby_version = '>= 2.0.0'
 
   spec.add_dependency 'doorkeeper', '>= 3.0.0'
 

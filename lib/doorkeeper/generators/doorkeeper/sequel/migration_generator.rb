@@ -1,0 +1,22 @@
+module Doorkeeper
+  module Sequel
+    class MigrationGenerator < ::Rails::Generators::Base
+      source_root File.expand_path('../templates', __FILE__)
+      desc 'Installs Doorkeeper Sequel migration file.'
+
+      def install
+        migration_template 'migration.rb', migration_name
+      end
+
+      private
+
+      def migration_name
+        "db/migrate/#{migration_timestamp}_create_doorkeeper_tables.rb"
+      end
+
+      def migration_timestamp
+        Time.now.strftime('%Y%m%d%H%M%S')
+      end
+    end
+  end
+end

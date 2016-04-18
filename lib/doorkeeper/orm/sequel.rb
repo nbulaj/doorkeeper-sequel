@@ -8,6 +8,7 @@ module Doorkeeper
       end
 
       def self.initialize_application_owner!
+        # TODO: migrate ownership
         require 'doorkeeper/models/concerns/ownership'
 
         Doorkeeper::Application.send :include, Doorkeeper::Models::Ownership
