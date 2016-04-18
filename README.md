@@ -22,11 +22,11 @@ end
 Generate migrations:
 
 ```
-rails generate doorkeeper:migration
+rails generate doorkeeper:sequel:migration
 ```
 
 ## License
 
-Alpha Card gem is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+Doorkeeper-sequel gem is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
 Copyright (c) 2014-2016 Nikita Bulaj (bulajnikita@gmail.com).
