@@ -2,8 +2,7 @@ module Doorkeeper
   class AccessToken < Sequel::Model
     set_dataset :oauth_access_tokens
 
-    # TODO: migrate mixin
-    include AccessTokenMixin
+    include Doorkeeper::Sequel::AccessTokenMixin
 
     def self.delete_all_for(application_id, resource_owner)
       where(application_id: application_id,
