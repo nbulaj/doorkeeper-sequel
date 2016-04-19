@@ -10,6 +10,7 @@ module Doorkeeper
 
         included do
           plugin :validation_helpers
+          plugin :timestamps
           plugin :association_dependencies
 
           one_to_many :access_grants, class: 'Doorkeeper::AccessGrant'
@@ -39,13 +40,11 @@ module Doorkeeper
 
         module ClassMethods
           def by_uid_and_secret(uid, secret)
-            # TODO: find_by ?
-            where(uid: uid.to_s, secret: secret.to_s).limit(1).to_a.first
+            find(uid: uid.to_s, secret: secret.to_s)
           end
 
           def by_uid(uid)
-            # TODO: find_by ?
-            where(uid: uid.to_s).limit(1).to_a.first
+            find(uid: uid.to_s)
           end
         end
 

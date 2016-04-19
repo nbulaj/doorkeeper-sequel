@@ -13,6 +13,7 @@ module Doorkeeper
 
         included do
           plugin :validation_helpers
+          plugin :timestamps
 
           many_to_one :application, class: 'Doorkeeper::Application' #, inverse_of: :access_grants
 
@@ -34,8 +35,7 @@ module Doorkeeper
 
         module ClassMethods
           def by_token(token)
-            # TODO: find_by ?
-            where(token: token.to_s).limit(1).to_a.first
+            find(token: token.to_s)
           end
         end
 
