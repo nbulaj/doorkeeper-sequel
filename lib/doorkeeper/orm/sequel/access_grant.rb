@@ -1,7 +1,9 @@
+require_relative 'mixins/access_grant_mixin'
+
 module Doorkeeper
   class AccessGrant < Sequel::Model
     set_dataset :oauth_access_grants
 
-    include Doorkeeper::Sequel::AccessGrantMixin
+    include Doorkeeper::Orm::Sequel::AccessGrantMixin
   end
 end
