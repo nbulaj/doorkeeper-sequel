@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'sequel'
+gem 'sequel', '>= 4.0'
+gem 'sequel_polymorphic'
 gem 'rails', '~> 4.2'
 gem 'doorkeeper', '~> 3.0.0'
 

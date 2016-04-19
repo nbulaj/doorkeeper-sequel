@@ -1,4 +1,4 @@
-require_relative 'mixins/access_grant_mixin'
+require_relative 'models/access_grant_mixin'
 
 module Doorkeeper
   class AccessGrant < Sequel::Model

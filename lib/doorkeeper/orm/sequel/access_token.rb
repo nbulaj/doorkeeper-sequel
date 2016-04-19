@@ -1,4 +1,4 @@
-require_relative 'mixins/access_token_mixin'
+require_relative 'models/access_token_mixin'
 
 module Doorkeeper
   class AccessToken < Sequel::Model

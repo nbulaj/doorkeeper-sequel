@@ -6,7 +6,6 @@ module Doorkeeper
 
         include OAuth::Helpers
         include Models::Scopes
-        # include ActiveModel::MassAssignmentSecurity if defined?(::ProtectedAttributes)
 
         included do
           plugin :validation_helpers

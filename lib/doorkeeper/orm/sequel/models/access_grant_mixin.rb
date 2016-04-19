@@ -9,13 +9,12 @@ module Doorkeeper
         include Models::Revocable
         include Models::Accessible
         include Models::Scopes
-        # include ActiveModel::MassAssignmentSecurity if defined?(::ProtectedAttributes)
 
         included do
           plugin :validation_helpers
           plugin :timestamps
 
-          many_to_one :application, class: 'Doorkeeper::Application' #, inverse_of: :access_grants
+          many_to_one :application, class: 'Doorkeeper::Application'
 
           if respond_to?(:set_allowed_columns)
             set_allowed_columns :resource_owner_id, :application_id, :expires_in, :redirect_uri, :scopes

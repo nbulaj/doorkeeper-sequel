@@ -9,13 +9,12 @@ module Doorkeeper
         include Models::Revocable
         include Models::Accessible
         include Models::Scopes
-        # include ActiveModel::MassAssignmentSecurity if defined?(::ProtectedAttributes)
 
         included do
           plugin :validation_helpers
           plugin :timestamps
 
-          one_to_many :application, class: 'Doorkeeper::Application' #, inverse_of: :access_tokens
+          one_to_many :application, class: 'Doorkeeper::Application'
 
           attr_writer :use_refresh_token
 

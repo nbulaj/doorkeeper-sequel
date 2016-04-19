@@ -1,4 +1,4 @@
-require_relative 'mixins/application_mixin'
+require_relative 'models/application_mixin'
 
 module Doorkeeper
   class Application < Sequel::Model
