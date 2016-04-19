@@ -40,6 +40,11 @@ module Doorkeeper
 
             validates_unique [:refresh_token] if use_refresh_token?
           end
+
+          def update_attribute(column, value)
+            set(column.to_sym => value)
+            save(columns: [column.to_sym], validate: false)
+          end
         end
 
         # TODO: review code above

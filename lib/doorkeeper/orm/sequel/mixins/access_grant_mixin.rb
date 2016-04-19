@@ -31,6 +31,11 @@ module Doorkeeper
             validates_presence [:resource_owner_id, :application_id, :token, :expires_in, :redirect_uri]
             validates_unique [:token]
           end
+
+          def update_attribute(column, value)
+            set(column.to_sym => value)
+            save(columns: [column.to_sym], validate: false)
+          end
         end
 
         module ClassMethods

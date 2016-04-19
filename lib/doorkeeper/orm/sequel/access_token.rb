@@ -10,8 +10,6 @@ module Doorkeeper
       where(application_id: application_id,
             resource_owner_id: resource_owner.id).delete
     end
-    # TODO: do we need it?
-    private_class_method :delete_all_for
 
     def self.order_method
       :order
