@@ -92,13 +92,14 @@ module Doorkeeper
                 return access_token
               end
             end
-            create!(
+
+            new(
                 application_id: application.try(:id),
                 resource_owner_id: resource_owner_id,
                 scopes: scopes.to_s,
                 expires_in: expires_in,
                 use_refresh_token: use_refresh_token
-            )
+            ).save(raise_on_failure: true)
           end
 
           def last_authorized_token_for(application_id, resource_owner_id)
