@@ -21,7 +21,7 @@ module Doorkeeper
           end
 
           def before_validation
-            generate_token
+            generate_token if new?
             super
           end
 
@@ -46,7 +46,7 @@ module Doorkeeper
         private
 
         def generate_token
-          self.token = UniqueToken.generate if new?
+          self.token = UniqueToken.generate
         end
       end
     end

@@ -1,6 +1,8 @@
 # Doorkeeper Sequel ORM extension
 
-:fire: :fire: **DONT USE IT! CURRENTLY IS UNDER DEVELOPMENT!** :fire: :fire:
+:fire: :fire: **USE WITH CAUTION ! CURRENTLY IS UNDER DEVELOPMENT!** :fire: :fire:
+
+Current version of Doorkeeper-Sequel ORM is not tested well yet. If you have desire and time for this - you are welcome!
 
 ## Installation
 
@@ -22,11 +24,11 @@ end
 Generate migrations:
 
 ```
-rails generate doorkeeper:sequel:migration
+rails generate doorkeeper_sequel:migration
 ```
 
 ## License
 
 Doorkeeper-sequel gem is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
-Copyright (c) 2014-2016 Nikita Bulaj (bulajnikita@gmail.com).
+Copyright (c) 2016 Nikita Bulaj (bulajnikita@gmail.com).

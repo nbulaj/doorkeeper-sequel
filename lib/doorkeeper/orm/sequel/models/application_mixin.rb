@@ -49,22 +49,17 @@ module Doorkeeper
 
         private
 
-        # TODO: ???
         def has_scopes?
           Doorkeeper.configuration.orm != :active_record ||
-              Application.new.attributes.include?("scopes")
+              Doorkeeper::Application.columns.include?('scopes')
         end
 
         def generate_uid
-          if uid.blank? && new?
-            self.uid = UniqueToken.generate
-          end
+          self.uid = UniqueToken.generate if (uid.blank? && new?)
         end
 
         def generate_secret
-          if secret.blank? && new?
-            self.secret = UniqueToken.generate
-          end
+          self.secret = UniqueToken.generate if (secret.blank? && new?)
         end
       end
     end
