@@ -1,3 +1,5 @@
+require_relative '../validators/redirect_uri_validator'
+
 module Doorkeeper
   module Orm
     module Sequel
@@ -6,6 +8,7 @@ module Doorkeeper
 
         include OAuth::Helpers
         include Models::Scopes
+        include Doorkeeper::Orm::Sequel::RedirectUriValidator
 
         included do
           plugin :validation_helpers
@@ -27,13 +30,11 @@ module Doorkeeper
             super
           end
 
-          # TODO: custom validator!
-          # validates :redirect_uri, redirect_uri: true
-
           def validate
             super
             validates_presence [:name, :secret, :uid]
             validates_unique [:uid]
+            validates_redirect_uri :redirect_uri
           end
         end
 
