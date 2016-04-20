@@ -143,7 +143,7 @@ module Doorkeeper
         private
 
         def generate_refresh_token
-          write_attribute :refresh_token, UniqueToken.generate
+          self[:refresh_token] = UniqueToken.generate
         end
 
         def generate_token
