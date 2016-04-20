@@ -7,7 +7,6 @@ module Doorkeeper
     include Doorkeeper::Orm::Sequel::ApplicationMixin
 
     one_to_many :authorized_tokens, class: 'Doorkeeper::AccessToken', conditions: { revoked_at: nil }
-    # TODO: fix join_table to be dynamic (what if we wanna use another name of the table)
     many_to_many :authorized_applications, join_table: :oauth_access_tokens,
                   class: self, left_key: :id, right_key: :application_id
 
