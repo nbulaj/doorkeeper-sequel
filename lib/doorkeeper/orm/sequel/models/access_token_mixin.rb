@@ -41,12 +41,11 @@ module Doorkeeper
           end
 
           def update_attribute(column, value)
-            set(column.to_sym => value)
+            self[column] = value
             save(columns: [column.to_sym], validate: false)
           end
         end
 
-        # TODO: review code above
         module ClassMethods
           def by_token(token)
             find(token: token.to_s)
@@ -60,7 +59,7 @@ module Doorkeeper
             where(application_id: application_id,
                   resource_owner_id: resource_owner.id,
                   revoked_at: nil).
-                map(&:revoke)
+                each(&:revoke)
           end
 
           def matching_token_for(application, resource_owner_or_id, scopes)
@@ -106,8 +105,6 @@ module Doorkeeper
                   resource_owner_id: resource_owner_id,
                   revoked_at: nil).
                 send(order_method, created_at_desc).
-                limit(1).
-                to_a.
                 first
           end
         end
@@ -148,9 +145,9 @@ module Doorkeeper
 
         def generate_token
           generator = Doorkeeper.configuration.access_token_generator.constantize
-          self.token = generator.generate(resource_owner_id: resource_owner_id,
-                                          scopes: scopes, application: application,
-                                          expires_in: expires_in)
+          self[:token] = generator.generate(resource_owner_id: resource_owner_id,
+                                            scopes: scopes, application: application,
+                                            expires_in: expires_in)
         rescue NoMethodError
           raise Errors::UnableToGenerateToken, "#{generator} does not respond to `.generate`."
         rescue NameError

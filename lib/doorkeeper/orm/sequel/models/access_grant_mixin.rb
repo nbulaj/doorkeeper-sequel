@@ -32,7 +32,7 @@ module Doorkeeper
           end
 
           def update_attribute(column, value)
-            set(column.to_sym => value)
+            self[column] = value
             save(columns: [column.to_sym], validate: false)
           end
         end
