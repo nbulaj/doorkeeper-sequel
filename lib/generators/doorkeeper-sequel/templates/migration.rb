@@ -24,7 +24,7 @@ Sequel.migration do
       column :redirect_uri, String, null: false
       column :created_at, DateTime, null: false
       column :revoked_at, DateTime
-      column :scopes, String, size: 255,
+      column :scopes, String, size: 255
     end
 
     create_table :oauth_access_tokens do
@@ -44,7 +44,7 @@ Sequel.migration do
       column :expires_in, Integer
       column :revoked_at, DateTime
       column :created_at, DateTime, null: false
-      column :scopes, String, size: 255,
+      column :scopes, String, size: 255
     end
   end
 end
