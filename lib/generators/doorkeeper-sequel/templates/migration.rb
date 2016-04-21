@@ -15,9 +15,10 @@ Sequel.migration do
     end
 
     create_table :oauth_access_grants do
-      column :resource_owner_id, Integer, null: false
-
+      primary_key :id
       foreign_key :application_id, :oauth_applications, null: false, on_delete: :cascade
+
+      column :resource_owner_id, Integer, null: false
 
       column :token, String, size: 255, null: false, index: { unique: true }
       column :expires_in, Integer, null: false
@@ -28,9 +29,10 @@ Sequel.migration do
     end
 
     create_table :oauth_access_tokens do
-      column :resource_owner_id, Integer, index: true
-
+      primary_key :id
       foreign_key :application_id, :oauth_applications, null: false, on_delete: :cascade
+
+      column :resource_owner_id, Integer, index: true
 
       # If you use a custom token generator you may need to change this column
       # from string to text, so that it accepts tokens larger than 255

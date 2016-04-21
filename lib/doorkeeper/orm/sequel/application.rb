@@ -12,7 +12,6 @@ module Doorkeeper
 
     def self.authorized_for(resource_owner)
       ids = Doorkeeper::AccessToken
-                .distinct(:application_id)
                 .where(resource_owner_id: resource_owner.id, revoked_at: nil)
                 .select_map(:application_id)
 
