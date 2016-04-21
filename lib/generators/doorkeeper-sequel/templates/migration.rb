@@ -43,6 +43,7 @@ Sequel.migration do
       column :token, String, size: 255, null: false, index: { unique: true }
 
       column :refresh_token, String, size: 255, index: { unique: true }
+      column :previous_refresh_token, String, size: 255, null: false, default: ''
       column :expires_in, Integer
       column :revoked_at, DateTime
       column :created_at, DateTime, null: false
