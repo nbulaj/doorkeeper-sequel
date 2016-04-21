@@ -14,7 +14,7 @@ module Doorkeeper
           plugin :validation_helpers
           plugin :timestamps
 
-          one_to_many :application, class: 'Doorkeeper::Application'
+          many_to_one :application, class: 'Doorkeeper::Application'
 
           attr_writer :use_refresh_token
 
