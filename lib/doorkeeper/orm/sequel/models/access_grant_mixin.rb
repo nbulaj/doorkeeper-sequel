@@ -4,6 +4,7 @@ module Doorkeeper
       module AccessGrantMixin
         extend ActiveSupport::Concern
 
+        include SequelCompat
         include OAuth::Helpers
         include Models::Expirable
         include Models::Revocable
@@ -29,11 +30,6 @@ module Doorkeeper
             super
             validates_presence [:resource_owner_id, :application_id, :token, :expires_in, :redirect_uri]
             validates_unique [:token]
-          end
-
-          def update_attribute(column, value)
-            self[column] = value
-            save(columns: [column.to_sym], validate: false)
           end
         end
 

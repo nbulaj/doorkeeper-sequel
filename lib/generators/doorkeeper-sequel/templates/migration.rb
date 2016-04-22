@@ -43,6 +43,12 @@ Sequel.migration do
       column :token, String, size: 255, null: false, index: { unique: true }
 
       column :refresh_token, String, size: 255, index: { unique: true }
+      # If there is a previous_refresh_token column,
+      # refresh tokens will be revoked after a related access token is used.
+      # If there is no previous_refresh_token column,
+      # previous tokens are revoked as soon as a new access token is created.
+      # Comment out this line if you'd rather have refresh tokens
+      # instantly revoked.
       column :previous_refresh_token, String, size: 255, null: false, default: ''
       column :expires_in, Integer
       column :revoked_at, DateTime

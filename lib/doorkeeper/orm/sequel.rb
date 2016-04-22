@@ -2,6 +2,7 @@ module Doorkeeper
   module Orm
     module Sequel
       def self.initialize_models!
+        require 'doorkeeper/orm/sequel/models/concerns/sequel_compat'
         require 'doorkeeper/orm/sequel/access_grant'
         require 'doorkeeper/orm/sequel/access_token'
         require 'doorkeeper/orm/sequel/application'

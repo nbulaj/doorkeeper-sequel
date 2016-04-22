@@ -4,6 +4,7 @@ module Doorkeeper
       module AccessTokenMixin
         extend ActiveSupport::Concern
 
+        include SequelCompat
         include OAuth::Helpers
         include Models::Expirable
         include Models::Revocable
@@ -20,7 +21,7 @@ module Doorkeeper
 
           if respond_to?(:set_allowed_columns)
             set_allowed_columns :application_id, :resource_owner_id, :expires_in,
-                                :scopes, :use_refresh_token
+                                :scopes, :use_refresh_token, :previous_refresh_token
           end
 
           def before_validation
@@ -38,11 +39,6 @@ module Doorkeeper
             validates_unique [:token]
 
             validates_unique [:refresh_token] if use_refresh_token?
-          end
-
-          def update_attribute(column, value)
-            self[column] = value
-            save(columns: [column.to_sym], validate: false)
           end
         end
 
@@ -91,13 +87,13 @@ module Doorkeeper
               end
             end
 
-            new(
+            create!(
                 application_id: application.try(:id),
                 resource_owner_id: resource_owner_id,
                 scopes: scopes.to_s,
                 expires_in: expires_in,
                 use_refresh_token: use_refresh_token
-            ).save(raise_on_failure: true)
+            )
           end
 
           def last_authorized_token_for(application_id, resource_owner_id)

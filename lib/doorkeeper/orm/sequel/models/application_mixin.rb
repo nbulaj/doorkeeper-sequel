@@ -6,6 +6,7 @@ module Doorkeeper
       module ApplicationMixin
         extend ActiveSupport::Concern
 
+        include SequelCompat
         include OAuth::Helpers
         include Models::Scopes
         include Doorkeeper::Orm::Sequel::RedirectUriValidator
