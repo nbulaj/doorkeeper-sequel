@@ -12,7 +12,7 @@ module Doorkeeper
           def validate
             super
 
-            validate_presence [:owner_id] if validate_owner?
+            validates_presence [:owner_id] if validate_owner?
           end
         end
 

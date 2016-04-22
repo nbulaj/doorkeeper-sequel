@@ -17,12 +17,18 @@ module Doorkeeper
               update(*args)
             end
 
-            def self.create!(values = {}, &block)
-              new(values, &block).save(raise_on_failure: true)
+            def save!
+              save(raise_on_failure: true)
             end
 
             def transaction(opts = {}, &block)
               db.transaction(opts, &block)
+            end
+          end
+
+          module ClassMethods
+            def create!(values = {}, &block)
+              new(values, &block).save(raise_on_failure: true)
             end
           end
         end
