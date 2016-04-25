@@ -1,3 +1,6 @@
+# SQLite memory database
+DB = Sequel.sqlite
+
 DB.create_table :oauth_applications do
   primary_key :id
 
@@ -10,6 +13,10 @@ DB.create_table :oauth_applications do
 
   column :created_at, DateTime
   column :updated_at, DateTime
+
+  column :owner_id, Integer
+  column :owner_type, String
+  index [:owner_id, :owner_type]
 end
 
 DB.create_table :oauth_access_grants do

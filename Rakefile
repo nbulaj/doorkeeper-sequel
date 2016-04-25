@@ -5,9 +5,10 @@ task :copy_and_run_doorkeeper_specs do
   # Copy native Doorkepeer specs
   `cp -r -n doorkeeper/spec .`
   # Replace ORM-independent files (configs, models, etc)
-  `cp -rf spec/stubs/models/user.rb spec/dummy/app/models/user.rb`
-  `cp -rf spec/stubs/support/sequel.rb spec/support/orm/sequel.rb`
-  `cp -rf spec/stubs/initializers/db.rb spec/dummy/config/initializers/db.rb`
+  FileUtils.cp_r('spec/stubs/spec_helper_integration.rb', 'spec/spec_helper_integration.rb')
+  FileUtils.cp_r('spec/stubs/models/user.rb', 'spec/dummy/app/models/user.rb')
+  FileUtils.cp_r('spec/stubs/config/initializers/db.rb', 'spec/dummy/config/initializers/db.rb')
+  FileUtils.cp_r('spec/stubs/config/application.rb', 'spec/dummy/config/application.rb')
   # Run specs
   `bundle exec rspec`
 end
