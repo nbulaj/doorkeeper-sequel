@@ -41,10 +41,8 @@ To run tests, clone this repository and run `rake`. It will copy and run
 doorkeeper’s original test suite, after configuring the ORM according to the
 variables defined in `.travis.yml` file.
 
-To run locally, you need to choose a gemfile, with a command similar to:
-
 ```
-$ export BUNDLE_GEMFILE=$PWD/gemfiles/Gemfile.sequel.rb
+$ bundle exec rake
 ```
 
 ## License
