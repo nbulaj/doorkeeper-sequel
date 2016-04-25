@@ -4,3 +4,5 @@
 log/*.log
 .rvmrc
 /.idea
+/spec/*
+!/spec/stubs
