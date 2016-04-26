@@ -18,7 +18,7 @@ module Doorkeeper
             update(*args)
           end
 
-          def save!
+          def save!(*)
             save(raise_on_failure: true)
           end
 
