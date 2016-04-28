@@ -21,7 +21,7 @@ end
 
 DB.create_table :oauth_access_grants do
   primary_key :id
-  foreign_key :application_id, :oauth_applications, null: false, on_delete: :cascade
+  column :application_id, Integer
 
   column :resource_owner_id, Integer, null: false
 
@@ -35,7 +35,7 @@ end
 
 DB.create_table :oauth_access_tokens do
   primary_key :id
-  foreign_key :application_id, :oauth_applications, null: false, on_delete: :cascade
+  column :application_id, Integer
 
   column :resource_owner_id, Integer, index: true
 

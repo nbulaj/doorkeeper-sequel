@@ -6,17 +6,23 @@ module Doorkeeper
 
     include Doorkeeper::Orm::Sequel::AccessTokenMixin
 
-    def self.delete_all_for(application_id, resource_owner)
-      where(application_id: application_id,
-            resource_owner_id: resource_owner.id).delete
-    end
+    class << self
+      def delete_all_for(application_id, resource_owner)
+        where(application_id: application_id,
+              resource_owner_id: resource_owner.id).delete
+      end
 
-    def self.order_method
-      :order
-    end
+      def order_method
+        :order
+      end
 
-    def self.created_at_desc
-      Sequel.desc(:created_at)
+      def created_at_desc
+        Sequel.desc(:created_at)
+      end
+
+      def refresh_token_revoked_on_use?
+        columns.include?(:previous_refresh_token)
+      end
     end
   end
 end
