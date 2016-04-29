@@ -19,6 +19,10 @@ task :copy_and_run_doorkeeper_specs do
   # Clear specs dir
   clear_specs
   # Copy native Doorkepeer specs
+  if Dir['doorkeeper/*'].empty?
+    `git submodule init`
+    `git submodule update`
+  end
   `cp -r -n doorkeeper/spec .`
   # Replace ORM-independent files (configs, models, etc)
   FileUtils.cp_r('spec/stubs/spec_helper_integration.rb', 'spec/spec_helper_integration.rb')
