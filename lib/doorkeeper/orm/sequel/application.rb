@@ -11,11 +11,8 @@ module Doorkeeper
                   class: self, left_key: :id, right_key: :application_id
 
     def self.authorized_for(resource_owner)
-      ids = Doorkeeper::AccessToken
-                .where(resource_owner_id: resource_owner.id, revoked_at: nil)
-                .select_map(:application_id)
-
-      where(id: ids).all
+      resource_access_tokens = AccessToken.active_for(resource_owner)
+      where(id: resource_access_tokens.select_map(:application_id)).all
     end
   end
 end

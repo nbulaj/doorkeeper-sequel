@@ -15,6 +15,11 @@ def clear_specs
   end
 end
 
+desc 'Update Git submodules.'
+task :update_submodules do
+  `git submodule foreach git pull origin master`
+end
+
 task :copy_and_run_doorkeeper_specs do
   # Clear specs dir
   clear_specs

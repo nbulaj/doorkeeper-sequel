@@ -21,9 +21,7 @@ module Doorkeeper
 
           add_association_dependencies access_grants: :destroy, access_tokens: :destroy
 
-          if respond_to?(:set_allowed_columns)
-            set_allowed_columns :name, :redirect_uri, :scopes
-          end
+          set_allowed_columns :name, :redirect_uri, :scopes
 
           def before_validation
             generate_uid
@@ -53,8 +51,7 @@ module Doorkeeper
         private
 
         def has_scopes?
-          Doorkeeper.configuration.orm != :active_record ||
-              Doorkeeper::Application.columns.include?('scopes')
+          Doorkeeper::Application.columns.include?('scopes')
         end
 
         def generate_uid

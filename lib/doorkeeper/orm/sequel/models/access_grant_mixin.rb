@@ -17,9 +17,8 @@ module Doorkeeper
 
           many_to_one :application, class: 'Doorkeeper::Application'
 
-          if respond_to?(:set_allowed_columns)
-            set_allowed_columns :resource_owner_id, :application_id, :expires_in, :redirect_uri, :scopes
-          end
+          set_allowed_columns :resource_owner_id, :application_id,
+                              :expires_in, :redirect_uri, :scopes
 
           def before_validation
             generate_token if new?
@@ -28,7 +27,8 @@ module Doorkeeper
 
           def validate
             super
-            validates_presence [:resource_owner_id, :application_id, :token, :expires_in, :redirect_uri]
+            validates_presence [:resource_owner_id, :application_id,
+                                :token, :expires_in, :redirect_uri]
             validates_unique [:token]
           end
         end

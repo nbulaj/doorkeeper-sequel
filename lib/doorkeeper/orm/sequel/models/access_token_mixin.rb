@@ -19,10 +19,8 @@ module Doorkeeper
 
           attr_writer :use_refresh_token
 
-          if respond_to?(:set_allowed_columns)
-            set_allowed_columns :application_id, :resource_owner_id, :expires_in,
-                                :scopes, :use_refresh_token, :previous_refresh_token
-          end
+          set_allowed_columns :application_id, :resource_owner_id, :expires_in,
+                              :scopes, :use_refresh_token, :previous_refresh_token
 
           def before_validation
             if new?

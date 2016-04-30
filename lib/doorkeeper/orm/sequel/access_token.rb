@@ -12,6 +12,10 @@ module Doorkeeper
               resource_owner_id: resource_owner.id).delete
       end
 
+      def active_for(resource_owner)
+        where(resource_owner_id: resource_owner.id, revoked_at: nil)
+      end
+
       def order_method
         :order
       end

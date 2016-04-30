@@ -4,7 +4,7 @@ module Doorkeeper
       module SequelCompat
         extend ActiveSupport::Concern
 
-        # ActiveRecord methods used by an Doorkeeper outside the ORM.
+        # ActiveRecord methods used by Doorkeeper outside the ORM.
         # Should be extracted at the architectural level.
         included do
           plugin :active_model
