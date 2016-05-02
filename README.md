@@ -26,7 +26,9 @@ end
 Generate migrations:
 
 ```
-rails generate doorkeeper_sequel:migration
+rails generate doorkeeper:sequel:migration
+rails generate doorkeeper:sequel:application_owner
+rails generate doorkeeper:sequel:previous_refresh_token
 ```
 
 ## Requirements

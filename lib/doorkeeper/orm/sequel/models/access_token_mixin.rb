@@ -138,6 +138,8 @@ module Doorkeeper
         end
 
         def generate_token
+          self[:created_at] ||= Time.now.utc
+
           generator = Doorkeeper.configuration.access_token_generator.constantize
           self[:token] = generator.generate(
             resource_owner_id: resource_owner_id,
