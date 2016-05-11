@@ -9,6 +9,8 @@ module Doorkeeper
         included do
           plugin :active_model
 
+          self.raise_on_save_failure = false
+
           def update_attribute(column, value)
             self[column] = value
             save(columns: [column.to_sym], validate: false)

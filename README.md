@@ -6,6 +6,12 @@ Current version of Doorkeeper-Sequel ORM _is not tested well yet_. If you have d
 
 Compatible with Doorkeeper 4.0.0.rc3: _554_ examples, _11_ failures. Release is very soon!
 
+## Requirements
+
+* Doorkeeper >= 4.0
+* Rails >= 4.2 (Doorkeeper dropped support of lower versions)
+* Sequel >= 4
+
 ## Installation
 
 doorkeeper-sequel provides [Doorkeeper](https://github.com/doorkeeper-gem/doorkeeper) support to [Sequel](https://github.com/jeremyevans/sequel).
@@ -30,12 +36,6 @@ rails generate doorkeeper:sequel:migration
 rails generate doorkeeper:sequel:application_owner
 rails generate doorkeeper:sequel:previous_refresh_token
 ```
-
-## Requirements
-
-* Doorkeeper >= 4.0
-* Rails >= 4.2 (Doorkeeper dropped support of lower versions)
-* Sequel >= 4
 
 ## Tests
 
