@@ -9,6 +9,7 @@ en:
         doorkeeper/application:
           attributes:
             redirect_uri:
+              blank: "can't be blank"
               fragment_present: 'cannot contain a fragment.'
               invalid_uri: 'must be a valid URI.'
               relative_uri: 'must be an absolute URI.'

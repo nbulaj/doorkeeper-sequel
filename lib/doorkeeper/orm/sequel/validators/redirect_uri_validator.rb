@@ -9,18 +9,18 @@ module Doorkeeper
             value = self[attribute]
 
             if value.blank?
-              errors.add(attribute, :blank)
+              errors.add(attribute, I18n.t(:blank, scope: redirect_uri_errors))
             else
               value.split.each do |val|
                 uri = ::URI.parse(val)
                 return if native_redirect_uri?(uri)
-                errors.add(attribute, :fragment_present) unless uri.fragment.nil?
-                errors.add(attribute, :relative_uri) if uri.scheme.nil? || uri.host.nil?
-                errors.add(attribute, :secured_uri) if invalid_ssl_uri?(uri)
+                errors.add(attribute, I18n.t(:fragment_present, scope: redirect_uri_errors)) unless uri.fragment.nil?
+                errors.add(attribute, I18n.t(:relative_uri, scope: redirect_uri_errors)) if uri.scheme.nil? || uri.host.nil?
+                errors.add(attribute, I18n.t(:secured_uri, scope: redirect_uri_errors)) if invalid_ssl_uri?(uri)
               end
             end
           rescue URI::InvalidURIError
-            errors.add(attribute, :invalid_uri)
+            errors.add(attribute, I18n.t(:invalid_uri, scope: redirect_uri_errors))
           end
 
           private
@@ -36,6 +36,11 @@ module Doorkeeper
 
           def native_redirect_uri
             Doorkeeper.configuration.native_redirect_uri
+          end
+
+          #TODO: plugin? Merge to DEFAULT_OPTIONS?
+          def redirect_uri_errors
+            'sequel.errors.models.doorkeeper/application.attributes.redirect_uri'
           end
         end
       end
