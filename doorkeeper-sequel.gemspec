@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.name        = 'doorkeeper-sequel'
   gem.version     = DoorkeeperSequel.gem_version
   gem.authors     = ['Nikita Bulaj']
-  gem.date         = '2016-04-19'
+  gem.date        = '2016-04-19'
   gem.email       = ['bulajnikita@gmail.com']
   gem.homepage    = 'http://github.com/nbulaj/doorkeeper-sequel'
   gem.summary     = 'Doorkeeper Sequel ORM'
@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.0.0'
 
-  gem.add_runtime_dependency 'doorkeeper', '>= 3.0.0'
+  gem.add_runtime_dependency 'doorkeeper', '>= 4.0.0.rc3'
   gem.add_runtime_dependency 'sequel', '>= 4.0'
   gem.add_runtime_dependency 'sequel_polymorphic', '>= 0.2'
 
