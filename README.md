@@ -1,21 +1,20 @@
 # Doorkeeper Sequel ORM extension
+[![Build Status](https://travis-ci.org/nbulaj/doorkeeper-sequel.svg?branch=master)](https://travis-ci.org/nbulaj/doorkeeper-sequel)
+[![Dependency Status](https://gemnasium.com/nbulaj/doorkeeper-sequel.svg)](https://gemnasium.com/nbulaj/doorkeeper-sequel)
+[![Code Climate](https://codeclimate.com/github/nbulaj/doorkeeper-sequel/badges/gpa.svg)](https://codeclimate.com/github/nbulaj/doorkeeper-sequel)
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](#license)
 
-:fire: :fire: **USE WITH CAUTION ! CURRENTLY IS UNDER DEVELOPMENT!** :fire: :fire:
-
-Current version of Doorkeeper-Sequel ORM _is not tested well yet_. If you have desire and time for this - you are welcome!
-
-Compatible with Doorkeeper 4.0.0.rc3: _554_ examples, _11_ failures. Release is very soon!
+`doorkeeper-sequel` provides [Doorkeeper](https://github.com/doorkeeper-gem/doorkeeper) support to [Sequel](https://github.com/jeremyevans/sequel) database toolkit.
 
 ## Requirements
 
-* Doorkeeper >= 4.0
+* Doorkeeper >= 4.0 (currently 4.0.0.rc4)
 * Rails >= 4.2 (Doorkeeper dropped support of lower versions)
 * Sequel >= 4
 
 ## Installation
 
-doorkeeper-sequel provides [Doorkeeper](https://github.com/doorkeeper-gem/doorkeeper) support to [Sequel](https://github.com/jeremyevans/sequel).
-To start using it, add to your Gemfile:
+To start using the Doorkeeper Sequel ORM, add to your Gemfile:
 
 ``` ruby
 gem 'doorkeeper-sequel', github: 'nbulaj/doorkeeper-sequel'
