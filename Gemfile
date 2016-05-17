@@ -6,7 +6,7 @@ gem 'sequel', '>= 4.0'
 gem 'sequel_polymorphic'
 
 gem 'rails', '~> 4.2'
-gem 'doorkeeper', github: 'doorkeeper-gem/doorkeeper'
+gem 'doorkeeper', git: 'https://github.com/doorkeeper-gem/doorkeeper'
 
 group :test do
   gem 'coveralls', require: false
