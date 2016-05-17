@@ -33,8 +33,11 @@ module Doorkeeper
             super
             validates_presence [:name, :secret, :uid]
             validates_unique [:uid]
-           #  RedirectUriValidator.new(attributes: values).validate_each(self, :redirect_uri, redirect_uri)
             validates_redirect_uri :redirect_uri
+
+            if respond_to?(:validate_owner?)
+              validates_presence [:owner_id] if validate_owner?
+            end
           end
         end
 

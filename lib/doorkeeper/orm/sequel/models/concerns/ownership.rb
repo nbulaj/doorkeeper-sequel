@@ -9,15 +9,9 @@ module Doorkeeper
 
           many_to_one :owner, polymorphic: true
 
-          def validate
-            super
-
-            validates_presence [:owner_id] if validate_owner?
+          def validate_owner?
+            Doorkeeper.configuration.confirm_application_owner?
           end
-        end
-
-        def validate_owner?
-          Doorkeeper.configuration.confirm_application_owner?
         end
       end
     end
