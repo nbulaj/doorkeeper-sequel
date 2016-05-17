@@ -13,6 +13,8 @@ module Doorkeeper
 
         Doorkeeper::Application.send :include, Doorkeeper::Orm::Sequel::Ownership
       end
+
+      def self.check_requirements!(_config); end
     end
   end
 end
