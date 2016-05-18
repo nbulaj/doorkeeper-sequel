@@ -8,7 +8,7 @@
 
 ## Requirements
 
-* Doorkeeper >= 4.0
+* Doorkeeper >= 4.0 (currently 4.0.0.rc4)
 * Rails >= 4.2 (Doorkeeper dropped support of lower versions)
 * Sequel >= 4
 

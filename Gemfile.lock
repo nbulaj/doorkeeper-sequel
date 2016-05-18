@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    doorkeeper (4.0.0.rc3)
+    doorkeeper (4.0.0.rc4)
       railties (>= 4.2)
     doorkeeper-sequel (0.1.0)
-      doorkeeper (>= 4.0.0.rc3)
+      doorkeeper (>= 4.0.0.rc4)
       sequel (>= 4.0)
       sequel_polymorphic (>= 0.2)
 
@@ -77,7 +77,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0221)
     mini_portile2 (2.0.0)
-    minitest (5.8.4)
+    minitest (5.9.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     nokogiri (1.6.7.2-x86-mingw32)
@@ -154,7 +154,7 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 2.7.0)
   database_cleaner (~> 1.5.0)
-  doorkeeper (>= 4.0.0.rc3)
+  doorkeeper (>= 4.0.0.rc4)
   doorkeeper-sequel!
   factory_girl (~> 4.7.0)
   generator_spec (~> 0.9.0)
