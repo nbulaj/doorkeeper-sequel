@@ -20,3 +20,6 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - gemfile: gemfiles/rails-5.0.gemfile
+  exclude:
+    - rvm: 2.1
+      gemfile: gemfiles/rails-5.0.gemfile
