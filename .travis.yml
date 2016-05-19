@@ -6,9 +6,9 @@ bundler_args: --without yard guard benchmarks
 before_install:
   - gem install bundler -v '~> 1.10'
 
-env:
-  - rails=4.2.0
-  - rails=5.0.0.rc1
+gemfile:
+  - gemfiles/rails-4.2.gemfile
+  - gemfiles/rails-5.0.gemfile
 
 rvm:
   - 2.1
@@ -19,3 +19,4 @@ rvm:
 matrix:
   allow_failures:
     - rvm: ruby-head
+    - gemfile: gemfiles/rails-5.0.gemfile

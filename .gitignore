@@ -6,3 +6,4 @@ log/*.log
 /.idea
 /spec/*
 !/spec/stubs
+gemfiles/*.lock

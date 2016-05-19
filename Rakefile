@@ -35,6 +35,7 @@ task :copy_and_run_doorkeeper_specs do
   FileUtils.cp_r('spec/stubs/config/initializers/db.rb', 'spec/dummy/config/initializers/db.rb')
   FileUtils.cp_r('spec/stubs/config/application.rb', 'spec/dummy/config/application.rb')
   FileUtils.cp_r('spec/stubs/support/sequel.rb', 'spec/support/orm/sequel.rb')
+  FileUtils.rm('spec/dummy/config/initializers/active_record_belongs_to_required_by_default.rb')
   # Run specs
   `bundle exec rspec`
 end
