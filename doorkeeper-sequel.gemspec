@@ -23,7 +23,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'sequel', '>= 4.0'
   gem.add_runtime_dependency 'sequel_polymorphic', '>= 0.2'
 
-  gem.add_development_dependency 'sqlite3', '~> 1.3.5'
   gem.add_development_dependency 'rspec-rails', '~> 3.4.0'
   gem.add_development_dependency 'capybara', '~> 2.7.0'
   gem.add_development_dependency 'generator_spec', '~> 0.9.0'

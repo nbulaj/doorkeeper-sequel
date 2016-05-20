@@ -1,5 +1,9 @@
 # SQLite memory database
-DB = Sequel.sqlite
+DB = if defined?(JRUBY_VERSION)
+       Sequel.connect('jdbc:sqlite::memory:')
+     else
+       Sequel.sqlite
+     end
 
 DB.create_table :oauth_applications do
   primary_key :id

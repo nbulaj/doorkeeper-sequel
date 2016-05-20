@@ -1,6 +1,4 @@
 ENV['RAILS_ENV'] ||= 'test'
-TABLE_NAME_PREFIX = ENV['table_name_prefix'] || nil
-TABLE_NAME_SUFFIX = ENV['table_name_suffix'] || nil
 
 DOORKEEPER_ORM = :sequel
 
