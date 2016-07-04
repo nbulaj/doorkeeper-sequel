@@ -1,10 +1,8 @@
 PATH
   remote: .
   specs:
-    doorkeeper (4.0.0.rc4)
-      railties (>= 4.2)
     doorkeeper-sequel (0.1.0)
-      doorkeeper (>= 4.0.0.rc4)
+      doorkeeper (>= 4.0.0)
       sequel (>= 4.0)
       sequel_polymorphic (>= 0.2)
 
@@ -59,6 +57,8 @@ GEM
     concurrent-ruby (1.0.2)
     database_cleaner (1.5.3)
     diff-lcs (1.2.5)
+    doorkeeper (4.0.0)
+      railties (>= 4.2)
     erubis (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -130,7 +130,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    sequel (4.35.0)
+    sequel (4.36.0)
     sequel_polymorphic (0.2.2)
       sequel (~> 4.0)
     sprockets (3.6.2)
@@ -159,7 +159,7 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 2.7.0)
   database_cleaner (~> 1.5.0)
-  doorkeeper (>= 4.0.0.rc4)
+  doorkeeper (>= 4.0.0)
   doorkeeper-sequel!
   factory_girl (~> 4.7.0)
   generator_spec (~> 0.9.0)

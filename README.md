@@ -8,7 +8,7 @@
 
 ## Requirements
 
-* Doorkeeper >= 4.0 (currently 4.0.0.rc4)
+* Doorkeeper >= 4.0
 * Rails >= 4.2 (Doorkeeper dropped support of lower versions)
 * Sequel >= 4
 
@@ -39,8 +39,7 @@ rails generate doorkeeper:sequel:previous_refresh_token
 ## Tests
 
 To run tests, clone this repository and run `rake`. It will copy and run
-doorkeeper’s original test suite, after configuring the ORM according to the
-variables defined in `.travis.yml` file.
+doorkeeper’s original test suite, after configuring the ORM and other stuffs.
 
 ```
 $ bundle exec rake
