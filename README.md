@@ -40,11 +40,30 @@ rails generate doorkeeper:sequel:previous_refresh_token
 ## Tests
 
 To run tests, clone this repository and run `rake`. It will copy and run
-doorkeeper’s original test suite, after configuring the ORM and other stuffs.
+`Doorkeeper`’s original test suite, after configuring the ORM and other stuffs.
 
 ```
 $ bundle exec rake
 ```
+
+## Contributing
+
+You are very welcome to help improve `doorkeeper-sequel` if you have suggestions for features that other people can use or some code improvements.
+
+To contribute:
+
+1. Fork the project.
+2. Create your feature branch (`git checkout -b my-new-feature`).
+3. Implement your feature or bug fix.
+4. Add documentation for your feature or bug fix.
+5. Run <tt>rake doc:yard</tt>. If your changes are not 100% documented, go back to step 4.
+6. Add tests for your feature or bug fix.
+7. Run `rake` to make sure all tests pass.
+8. Commit your changes (`git commit -am 'Add new feature'`).
+9. Push to the branch (`git push origin my-new-feature`).
+10. Create new pull request.
+
+Thanks.
 
 ## License
 
