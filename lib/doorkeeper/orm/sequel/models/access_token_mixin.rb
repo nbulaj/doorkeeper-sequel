@@ -38,6 +38,10 @@ module Doorkeeper
 
             validates_unique [:refresh_token] if use_refresh_token?
           end
+
+          def application_id?
+            application_id.present?
+          end
         end
 
         module ClassMethods
