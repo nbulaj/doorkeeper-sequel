@@ -1,5 +1,5 @@
 # Doorkeeper Sequel ORM extension
-[![GitHub release](https://img.shields.io/github/release/nbulaj/doorkeeper-sequel.svg?maxAge=2592000)]()
+[![GitHub release](https://img.shields.io/github/release/nbulaj/doorkeeper-sequel.svg?maxAge=259200)]()
 [![Build Status](https://travis-ci.org/nbulaj/doorkeeper-sequel.svg?branch=master)](https://travis-ci.org/nbulaj/doorkeeper-sequel)
 [![Dependency Status](https://gemnasium.com/nbulaj/doorkeeper-sequel.svg)](https://gemnasium.com/nbulaj/doorkeeper-sequel)
 [![Code Climate](https://codeclimate.com/github/nbulaj/doorkeeper-sequel/badges/gpa.svg)](https://codeclimate.com/github/nbulaj/doorkeeper-sequel)
@@ -10,7 +10,7 @@
 ## Requirements
 
 * Doorkeeper >= 4.0
-* Rails >= 4.2 (Doorkeeper dropped support of lower versions)
+* Rails >= 4.2 (Doorkeeper 4 dropped support of lower versions)
 * Sequel >= 4
 
 ## Installation
@@ -40,7 +40,7 @@ rails generate doorkeeper:sequel:previous_refresh_token
 ## Tests
 
 To run tests, clone this repository and run `rake`. It will copy and run
-`Doorkeeper`’s original test suite, after configuring the ORM and other stuffs.
+`Doorkeeper`’s original test suite after configuring the ORM and other stuffs.
 
 ```
 $ bundle exec rake
@@ -56,12 +56,11 @@ To contribute:
 2. Create your feature branch (`git checkout -b my-new-feature`).
 3. Implement your feature or bug fix.
 4. Add documentation for your feature or bug fix.
-5. Run <tt>rake doc:yard</tt>. If your changes are not 100% documented, go back to step 4.
-6. Add tests for your feature or bug fix.
-7. Run `rake` to make sure all tests pass.
-8. Commit your changes (`git commit -am 'Add new feature'`).
-9. Push to the branch (`git push origin my-new-feature`).
-10. Create new pull request.
+5. Add tests for your feature or bug fix.
+6. Run `rake` to make sure all tests pass.
+7. Commit your changes (`git commit -am 'Add new feature'`).
+8. Push to the branch (`git push origin my-new-feature`).
+9. Create new pull request.
 
 Thanks.
 
