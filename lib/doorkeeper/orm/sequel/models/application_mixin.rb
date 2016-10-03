@@ -19,7 +19,7 @@ module Doorkeeper
           one_to_many :access_grants, class: 'Doorkeeper::AccessGrant'
           one_to_many :access_tokens, class: 'Doorkeeper::AccessToken'
 
-          add_association_dependencies access_grants: :destroy, access_tokens: :destroy
+          add_association_dependencies access_grants: :delete, access_tokens: :delete
 
           set_allowed_columns :name, :redirect_uri, :scopes
 
