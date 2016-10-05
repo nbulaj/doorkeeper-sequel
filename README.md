@@ -16,9 +16,9 @@
 ## Installation
 
 To start using the Doorkeeper Sequel ORM, add to your Gemfile:
-
+  
 ``` ruby
-gem 'doorkeeper-sequel', github: 'nbulaj/doorkeeper-sequel'
+gem 'doorkeeper-sequel', git: 'https://github.com/nbulaj/doorkeeper-sequel.git'
 ```
 
 Set the Doorkeeper ORM configuration:
