@@ -21,7 +21,7 @@ module Doorkeeper
       end
 
       def created_at_desc
-        Sequel.desc(:created_at)
+        ::Sequel.desc(:created_at)
       end
 
       def refresh_token_revoked_on_use?
