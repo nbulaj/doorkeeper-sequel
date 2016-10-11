@@ -13,7 +13,7 @@ module Doorkeeper
             else
               value.split.each do |val|
                 uri = ::URI.parse(val)
-                return if native_redirect_uri?(uri)
+                return true if native_redirect_uri?(uri)
                 errors.add(attribute, I18n.t(:fragment_present, scope: redirect_uri_errors)) unless uri.fragment.nil?
                 errors.add(attribute, I18n.t(:relative_uri, scope: redirect_uri_errors)) if uri.scheme.nil? || uri.host.nil?
                 errors.add(attribute, I18n.t(:secured_uri, scope: redirect_uri_errors)) if invalid_ssl_uri?(uri)
@@ -38,7 +38,7 @@ module Doorkeeper
             Doorkeeper.configuration.native_redirect_uri
           end
 
-          #TODO: plugin? Merge to DEFAULT_OPTIONS?
+          # TODO: plugin? Merge to DEFAULT_OPTIONS?
           def redirect_uri_errors
             'sequel.errors.models.doorkeeper/application.attributes.redirect_uri'
           end

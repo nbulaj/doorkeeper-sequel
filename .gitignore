@@ -7,3 +7,4 @@ log/*.log
 /spec/*
 !/spec/stubs
 gemfiles/*.lock
+Gemfile.lock
