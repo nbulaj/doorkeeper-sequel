@@ -56,8 +56,8 @@ module Doorkeeper
           def revoke_all_for(application_id, resource_owner)
             where(application_id: application_id,
                   resource_owner_id: resource_owner.id,
-                  revoked_at: nil).
-                each(&:revoke)
+                  revoked_at: nil)
+              .each(&:revoke)
           end
 
           def matching_token_for(application, resource_owner_or_id, scopes)
@@ -74,11 +74,11 @@ module Doorkeeper
 
           def scopes_match?(token_scopes, param_scopes, app_scopes)
             (!token_scopes.present? && !param_scopes.present?) ||
-                Doorkeeper::OAuth::Helpers::ScopeChecker.match?(
-                    token_scopes.to_s,
-                    param_scopes,
-                    app_scopes
-                )
+              Doorkeeper::OAuth::Helpers::ScopeChecker.match?(
+                token_scopes.to_s,
+                param_scopes,
+                app_scopes
+              )
           end
 
           def find_or_create_for(application, resource_owner_id, scopes, expires_in, use_refresh_token)
@@ -90,20 +90,20 @@ module Doorkeeper
             end
 
             create!(
-                application_id: application.try(:id),
-                resource_owner_id: resource_owner_id,
-                scopes: scopes.to_s,
-                expires_in: expires_in,
-                use_refresh_token: use_refresh_token
+              application_id: application.try(:id),
+              resource_owner_id: resource_owner_id,
+              scopes: scopes.to_s,
+              expires_in: expires_in,
+              use_refresh_token: use_refresh_token
             )
           end
 
           def last_authorized_token_for(application_id, resource_owner_id)
             where(application_id: application_id,
                   resource_owner_id: resource_owner_id,
-                  revoked_at: nil).
-                send(order_method, created_at_desc).
-                first
+                  revoked_at: nil)
+              .send(order_method, created_at_desc)
+              .first
           end
         end
 
@@ -121,14 +121,14 @@ module Doorkeeper
             scopes: scopes,
             expires_in_seconds: expires_in_seconds,
             application: { uid: application.try(:uid) },
-            created_at: created_at.to_i,
+            created_at: created_at.to_i
           }
         end
 
         # It indicates whether the tokens have the same credential
         def same_credential?(access_token)
           application_id == access_token.application_id &&
-              resource_owner_id == access_token.resource_owner_id
+            resource_owner_id == access_token.resource_owner_id
         end
 
         def acceptable?(scopes)

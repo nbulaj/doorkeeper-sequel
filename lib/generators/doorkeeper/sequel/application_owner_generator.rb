@@ -16,7 +16,7 @@ module Doorkeeper
       end
 
       def migration_timestamp
-        Time.now.strftime('%Y%m%d%H%M%S')
+        Time.current.strftime('%Y%m%d%H%M%S')
       end
     end
   end

@@ -58,11 +58,11 @@ module Doorkeeper
         end
 
         def generate_uid
-          self.uid = UniqueToken.generate if (uid.blank? && new?)
+          self.uid = UniqueToken.generate if uid.blank? && new?
         end
 
         def generate_secret
-          self.secret = UniqueToken.generate if (secret.blank? && new?)
+          self.secret = UniqueToken.generate if secret.blank? && new?
         end
       end
     end

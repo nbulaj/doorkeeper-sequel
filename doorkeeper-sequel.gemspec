@@ -1,4 +1,4 @@
-$:.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'doorkeeper-sequel/version'
 
@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.name        = 'doorkeeper-sequel'
   gem.version     = DoorkeeperSequel.gem_version
   gem.authors     = ['Nikita Bulaj']
-  gem.date        = '2016-09-05'
+  gem.date        = '2016-10-12'
   gem.email       = ['bulajnikita@gmail.com']
   gem.homepage    = 'http://github.com/nbulaj/doorkeeper-sequel'
   gem.summary     = 'Doorkeeper Sequel ORM'
@@ -19,14 +19,14 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.0.0'
 
-  gem.add_runtime_dependency 'doorkeeper', '>= 4.0.0'
-  gem.add_runtime_dependency 'sequel', '>= 4.0'
-  gem.add_runtime_dependency 'sequel_polymorphic', '>= 0.2'
+  gem.add_runtime_dependency 'doorkeeper', '~> 4.0', '>= 4.0.0'
+  gem.add_runtime_dependency 'sequel', '~> 4.0', '>= 4.0.0'
+  gem.add_runtime_dependency 'sequel_polymorphic', '~> 0.2', '< 1.0'
 
-  gem.add_development_dependency 'rspec-rails', '~> 3.4.0'
-  gem.add_development_dependency 'capybara', '~> 2.7.0'
+  gem.add_development_dependency 'rspec-rails', '~> 3.4', '>= 3.4.0'
+  gem.add_development_dependency 'capybara', '~> 2.7', '>= 2.7.0'
   gem.add_development_dependency 'generator_spec', '~> 0.9.0'
-  gem.add_development_dependency 'factory_girl', '~> 4.7.0'
+  gem.add_development_dependency 'factory_girl', '~> 4.7', '>= 4.7.0'
   gem.add_development_dependency 'timecop', '~> 0.8.0'
-  gem.add_development_dependency 'database_cleaner', '~> 1.5.0'
+  gem.add_development_dependency 'database_cleaner', '~> 1.5', '>= 1.5.0'
 end
