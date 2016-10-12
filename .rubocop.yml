@@ -3,6 +3,7 @@ LineLength:
 AllCops:
   Exclude:
     - 'doorkeeper/**/*'
+    - 'spec/**/*'
   DisplayCopNames: true
 Rails:
   Enabled: true

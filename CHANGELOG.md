@@ -2,6 +2,15 @@
 
 Reverse Chronological Order:
 
+## `1.2.1` (2016-10-12)
+
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.2.0...1.2.1
+
+* Association dependencies changed to `:delete` instead of `:destroy` (in accordance to Doorkeeper)
+* Fixed generators and specs for it
+* Code refactoring with [rubocop](https://github.com/bbatsov/rubocop)
+* No braking changes
+
 ## `1.2.0` (2016-09-05)
 
 https://github.com/nbulaj/doorkeeper-sequel/compare/1.0.0...1.2.0

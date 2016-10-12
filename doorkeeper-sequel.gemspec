@@ -1,4 +1,4 @@
-$:.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'doorkeeper-sequel/version'
 
@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.name        = 'doorkeeper-sequel'
   gem.version     = DoorkeeperSequel.gem_version
   gem.authors     = ['Nikita Bulaj']
-  gem.date        = '2016-09-05'
+  gem.date        = '2016-10-12'
   gem.email       = ['bulajnikita@gmail.com']
   gem.homepage    = 'http://github.com/nbulaj/doorkeeper-sequel'
   gem.summary     = 'Doorkeeper Sequel ORM'
