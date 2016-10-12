@@ -4,9 +4,9 @@ PATH
     doorkeeper (4.2.0)
       railties (>= 4.2)
     doorkeeper-sequel (1.2.1)
-      doorkeeper (>= 4.0.0)
-      sequel (>= 4.0)
-      sequel_polymorphic (>= 0.2)
+      doorkeeper (~> 4.0, >= 4.0.0)
+      sequel (~> 4.0, >= 4.0.0)
+      sequel_polymorphic (~> 0.2, < 1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -153,11 +153,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara (~> 2.7.0)
-  database_cleaner (~> 1.5.0)
+  capybara (~> 2.7, >= 2.7.0)
+  database_cleaner (~> 1.5, >= 1.5.0)
   doorkeeper (>= 4.0.0)
   doorkeeper-sequel!
-  factory_girl (~> 4.7.0)
+  factory_girl (~> 4.7, >= 4.7.0)
   generator_spec (~> 0.9.0)
   jdbc-sqlite3
   rails (~> 5.0)
