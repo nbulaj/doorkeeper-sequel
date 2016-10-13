@@ -14,9 +14,9 @@ module Doorkeeper
               value.split.each do |val|
                 uri = ::URI.parse(val)
                 return true if native_redirect_uri?(uri)
-                errors.add(attribute, I18n.t(:fragment_present, scope: redirect_uri_errors)) unless uri.fragment.nil?
-                errors.add(attribute, I18n.t(:relative_uri, scope: redirect_uri_errors)) if uri.scheme.nil? || uri.host.nil?
-                errors.add(attribute, I18n.t(:secured_uri, scope: redirect_uri_errors)) if invalid_ssl_uri?(uri)
+                errors.add(attribute, I18n.t(:fragment_present, scope: errors_scope)) unless uri.fragment.nil?
+                errors.add(attribute, I18n.t(:relative_uri, scope: errors_scope)) if uri.scheme.nil? || uri.host.nil?
+                errors.add(attribute, I18n.t(:secured_uri, scope: errors_scope)) if invalid_ssl_uri?(uri)
               end
             end
           rescue URI::InvalidURIError
