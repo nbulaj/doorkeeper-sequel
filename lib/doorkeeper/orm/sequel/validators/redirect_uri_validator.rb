@@ -9,7 +9,7 @@ module Doorkeeper
             value = self[attribute]
 
             if value.blank?
-              errors.add(attribute, I18n.t(:blank, scope: redirect_uri_errors))
+              errors.add(attribute, I18n.t(:blank, scope: errors_scope))
             else
               value.split.each do |val|
                 uri = ::URI.parse(val)
@@ -20,7 +20,7 @@ module Doorkeeper
               end
             end
           rescue URI::InvalidURIError
-            errors.add(attribute, I18n.t(:invalid_uri, scope: redirect_uri_errors))
+            errors.add(attribute, I18n.t(:invalid_uri, scope: errors_scope))
           end
 
           private
@@ -39,7 +39,7 @@ module Doorkeeper
           end
 
           # TODO: plugin? Merge to DEFAULT_OPTIONS?
-          def redirect_uri_errors
+          def errors_scope
             'sequel.errors.models.doorkeeper/application.attributes.redirect_uri'
           end
         end
