@@ -39,8 +39,7 @@ rails generate doorkeeper:sequel:previous_refresh_token
 
 ## Tests
 
-To run tests, clone this repository and run `rake`. It will copy and run
-`Doorkeeper`’s original test suite after configuring the ORM and other stuffs.
+To run tests, clone this repository and run `rake`. It will copy and run `Doorkeeper`’s original test suite after configuring the ORM and other stuffs.
 
 ```
 $ bundle exec rake
@@ -68,7 +67,7 @@ Thanks.
 
 Doorkeeper-sequel gem is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
-Copyright (c) 2016 Nikita Bulaj (bulajnikita@gmail.com).
+Copyright (c) 2016 Nikita Bulai (bulajnikita@gmail.com).
 
 ---
 
