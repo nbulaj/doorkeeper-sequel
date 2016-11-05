@@ -11,3 +11,7 @@ Documentation:
   Enabled: false
 Style/EndOfLine:
   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - lib/doorkeeper/orm/sequel/validators/*
+    - lib/generators/doorkeeper/sequel/templates/*

@@ -84,9 +84,7 @@ module Doorkeeper
           def find_or_create_for(application, resource_owner_id, scopes, expires_in, use_refresh_token)
             if Doorkeeper.configuration.reuse_access_token
               access_token = matching_token_for(application, resource_owner_id, scopes)
-              if access_token && !access_token.expired?
-                return access_token
-              end
+              return access_token if access_token && !access_token.expired?
             end
 
             create!(

@@ -46,9 +46,9 @@ end
 task :copy_and_run_doorkeeper_specs do
   # Clear specs directory
   ExtensionIntegrator.clear_specs!
-  # Init Doorkeeper submodel if it doesn't exists
+  # Init Doorkeeper submodule if it doesn't exists
   ExtensionIntegrator.init_submodule! if Dir['doorkeeper/*'].empty?
-  # Copy native Doorkepeer specs
+  # Copy native Doorkeeper specs
   `cp -r -n doorkeeper/spec .`
   # Replace ORM-dependent files (configs, models, etc)
   ExtensionIntegrator.copy_spec_stubs!
