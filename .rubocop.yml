@@ -9,8 +9,6 @@ Rails:
   Enabled: true
 Documentation:
   Enabled: false
-Style/EndOfLine:
-  Enabled: false
 Metrics/BlockLength:
   Exclude:
     - lib/doorkeeper/orm/sequel/validators/*

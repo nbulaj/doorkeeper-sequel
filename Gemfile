@@ -13,8 +13,8 @@ end
 gem 'sequel', '>= 4.0'
 gem 'sequel_polymorphic'
 
-gem 'rails', '~> 5.0'
 gem 'doorkeeper', '>= 4.0.0'
+gem 'rails', '~> 5.0'
 
 group :test do
   gem 'rspec-rails', '~> 3.4'
