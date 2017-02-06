@@ -8,6 +8,7 @@ module Doorkeeper
         # Should be extracted at the architectural level.
         included do
           plugin :active_model
+          plugin :schema
 
           self.raise_on_save_failure = false
 

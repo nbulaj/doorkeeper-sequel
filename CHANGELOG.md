@@ -2,6 +2,16 @@
 
 Reverse Chronological Order:
 
+## master
+
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.2.1...master
+
+* ORM code refactoring
+* Update Doorkeeper submodule
+* Fix `#table_exists?` method for models
+* `Rakefile` refactoring
+* Remove Gemfile.lock
+
 ## `1.2.1` (2016-10-12)
 
 https://github.com/nbulaj/doorkeeper-sequel/compare/1.2.0...1.2.1
