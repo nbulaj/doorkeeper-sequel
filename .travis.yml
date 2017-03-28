@@ -9,11 +9,13 @@ before_install:
 gemfile:
   - gemfiles/rails-4.2.gemfile
   - gemfiles/rails-5.0.gemfile
+  - gemfiles/rails-5.1rc1.gemfile
 
 rvm:
   - 2.1
   - 2.2.4
   - 2.3.3
+  - 2.4.1
   - ruby-head
 
 matrix:
@@ -22,3 +24,5 @@ matrix:
   exclude:
     - rvm: 2.1
       gemfile: gemfiles/rails-5.0.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/rails-5.1rc1.gemfile
