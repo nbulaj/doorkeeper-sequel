@@ -1,9 +1,7 @@
 require_relative 'models/access_token_mixin'
 
 module Doorkeeper
-  class AccessToken < Sequel::Model
-    set_dataset :oauth_access_tokens
-
+  class AccessToken < Sequel::Model(:oauth_access_tokens)
     include Doorkeeper::Orm::Sequel::AccessTokenMixin
 
     class << self
