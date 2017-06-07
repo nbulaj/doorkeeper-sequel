@@ -11,7 +11,7 @@ module Doorkeeper
           plugin :schema
 
           # Sequel 4.47 deprecated #set_allowed_columns
-          if Sequel::MAJOR >= 4 && Sequel::MINOR >= 47
+          if ::Sequel::MAJOR >= 4 && ::Sequel::MINOR >= 47
             plugin :whitelist_security
           end
 
