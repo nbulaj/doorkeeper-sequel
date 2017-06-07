@@ -46,11 +46,11 @@ module Doorkeeper
 
         module ClassMethods
           def by_token(token)
-            find(token: token.to_s)
+            first(token: token.to_s)
           end
 
           def by_refresh_token(refresh_token)
-            find(refresh_token: refresh_token.to_s)
+            first(refresh_token: refresh_token.to_s)
           end
 
           def revoke_all_for(application_id, resource_owner)

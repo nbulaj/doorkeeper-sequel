@@ -43,11 +43,11 @@ module Doorkeeper
 
         module ClassMethods
           def by_uid_and_secret(uid, secret)
-            find(uid: uid.to_s, secret: secret.to_s)
+            first(uid: uid.to_s, secret: secret.to_s)
           end
 
           def by_uid(uid)
-            find(uid: uid.to_s)
+            first(uid: uid.to_s)
           end
         end
 

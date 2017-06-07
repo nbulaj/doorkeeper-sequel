@@ -35,7 +35,7 @@ module Doorkeeper
 
         module ClassMethods
           def by_token(token)
-            find(token: token.to_s)
+            first(token: token.to_s)
           end
         end
 
