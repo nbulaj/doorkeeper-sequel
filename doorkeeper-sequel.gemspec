@@ -5,8 +5,8 @@ require 'doorkeeper-sequel/version'
 Gem::Specification.new do |gem|
   gem.name        = 'doorkeeper-sequel'
   gem.version     = DoorkeeperSequel.gem_version
-  gem.authors     = ['Nikita Bulaj']
-  gem.date        = '2016-10-12'
+  gem.authors     = ['Nikita Bulai']
+  gem.date        = '2017-06-07'
   gem.email       = ['bulajnikita@gmail.com']
   gem.homepage    = 'http://github.com/nbulaj/doorkeeper-sequel'
   gem.summary     = 'Doorkeeper Sequel ORM'
