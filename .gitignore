@@ -9,3 +9,4 @@ log/*.log
 /spec/stubs/generators/tmp
 gemfiles/*.lock
 Gemfile.lock
+doorkeeper-sequel-*.gem
