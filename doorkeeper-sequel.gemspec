@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.name        = 'doorkeeper-sequel'
   gem.version     = DoorkeeperSequel.gem_version
   gem.authors     = ['Nikita Bulai']
-  gem.date        = '2017-06-07'
+  gem.date        = '2017-08-10'
   gem.email       = ['bulajnikita@gmail.com']
   gem.homepage    = 'http://github.com/nbulaj/doorkeeper-sequel'
   gem.summary     = 'Doorkeeper Sequel ORM'
