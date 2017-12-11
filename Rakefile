@@ -50,7 +50,7 @@ task :copy_and_run_doorkeeper_specs do
   # Init Doorkeeper submodule if it doesn't exists
   ExtensionIntegrator.init_submodule! if Dir['doorkeeper/*'].empty?
   # Copy native Doorkeeper specs
-  `cp -r -n doorkeeper/spec .`
+  `cp -r #{Gem.win_platform? ? '' : '-n'} doorkeeper/spec .`
   # Replace ORM-dependent files (configs, models, etc)
   ExtensionIntegrator.copy_spec_stubs!
   # Run specs
