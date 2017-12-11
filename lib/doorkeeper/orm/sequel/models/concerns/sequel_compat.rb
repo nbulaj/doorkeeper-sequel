@@ -9,8 +9,8 @@ module Doorkeeper
         included do
           plugin :active_model
 
-          # Sequel 4.47 deprecated #set_allowed_columns
-          if ::Sequel::MAJOR >= 4 && ::Sequel::MINOR >= 47
+          # Sequel 4.47 and higher deprecated #set_allowed_columns
+          if (::Sequel::MAJOR >= 4 && ::Sequel::MINOR >= 47) || ::Sequel::MAJOR >= 5
             plugin :whitelist_security
           end
 
