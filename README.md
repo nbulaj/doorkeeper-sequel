@@ -18,7 +18,7 @@
 To start using the Doorkeeper Sequel ORM, add to your Gemfile:
 
 ``` ruby
-gem 'doorkeeper-sequel', '~> 1.2'
+gem 'doorkeeper-sequel', '~> 1.3'
 ```
 
 Or you can use git `master` branch for the latest gem version:
@@ -38,9 +38,9 @@ end
 Generate migrations:
 
 ```
-rails generate doorkeeper:sequel:migration
-rails generate doorkeeper:sequel:application_owner
-rails generate doorkeeper:sequel:previous_refresh_token
+rake doorkeeper_sequel:generate:migration
+rake doorkeeper_sequel:generate:application_owner
+rake doorkeeper_sequel:generate:previous_refresh_token
 ```
 
 ## Tests
@@ -73,7 +73,7 @@ Thanks.
 
 Doorkeeper-sequel gem is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
-Copyright (c) 2016-2017 Nikita Bulai (bulajnikita@gmail.com).
+Copyright (c) 2016-2018 Nikita Bulai (bulajnikita@gmail.com).
 
 ---
 
