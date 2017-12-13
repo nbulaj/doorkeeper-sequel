@@ -4,9 +4,17 @@ Reverse Chronological Order:
 
 ## master
 
-https://github.com/nbulaj/doorkeeper-sequel/compare/1.2.3...master
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.3.0...master
 
 ...
+
+## `1.3.0` (2017-12-13)
+
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.2.3...1.3.0
+
+* Fix dependencies to allow using of Sequel 5
+* Fix models plugins for Sequel >= 4.47
+* Fix generators to allow migration generation when tables not created
 
 ## `1.2.3` (2017-08-10)
 

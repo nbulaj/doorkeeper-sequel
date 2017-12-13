@@ -12,7 +12,7 @@ class ExtensionIntegrator
       base_dir = File.join(Dir.pwd, 'spec')
 
       Dir.foreach(base_dir) do |file|
-        next if %w(. .. stubs).include?(file)
+        next if %w[. .. stubs].include?(file)
 
         file_name = File.join(base_dir, file)
 
@@ -31,9 +31,8 @@ class ExtensionIntegrator
       FileUtils.cp_r('spec/stubs/config/application.rb', 'spec/dummy/config/application.rb')
       FileUtils.cp_r('spec/stubs/support/sequel.rb', 'spec/support/orm/sequel.rb')
       FileUtils.rm('spec/dummy/config/initializers/active_record_belongs_to_required_by_default.rb')
-      # Generators
+      # Remove generators specs because we are using our own
       FileUtils.rm(Dir.glob('spec/generators/*.rb'))
-      FileUtils.cp_r(Dir.glob('spec/stubs/generators/*.rb'), 'spec/generators/')
     end
   end
 end
