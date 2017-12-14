@@ -8,6 +8,13 @@ https://github.com/nbulaj/doorkeeper-sequel/compare/1.3.0...master
 
 ...
 
+## `1.3.1` (2017-12-14)
+
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.3.0...1.3.1
+
+* Fix Sequel model initialization (database error for rake tasks)
+* Fix main migration name for generator
+
 ## `1.3.0` (2017-12-13)
 
 https://github.com/nbulaj/doorkeeper-sequel/compare/1.2.3...1.3.0
