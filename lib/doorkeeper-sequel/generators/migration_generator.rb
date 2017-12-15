@@ -8,7 +8,7 @@ module DoorkeeperSequel
     desc 'Installs Doorkeeper Sequel migration file.'
 
     def install
-      create_migration 'migration.rb'
+      create_migration 'create_doorkeeper_tables.rb'
     end
   end
 end

@@ -2,10 +2,20 @@ module Doorkeeper
   module Orm
     module Sequel
       def self.initialize_models!
-        require 'doorkeeper/orm/sequel/models/concerns/sequel_compat'
-        require 'doorkeeper/orm/sequel/access_grant'
-        require 'doorkeeper/orm/sequel/access_token'
-        require 'doorkeeper/orm/sequel/application'
+        # Hack to bypass Sequel restrictions to model datasets definition.
+        # As it requires valid existing table at the moment of Model class definition,
+        # all the rake tasks (db:create, db:migrate, etc) would be aborted due to error.
+        old_value = ::Sequel::Model.require_valid_table
+        ::Sequel::Model.require_valid_table = false
+
+        begin
+          require 'doorkeeper/orm/sequel/models/concerns/sequel_compat'
+          require 'doorkeeper/orm/sequel/access_grant'
+          require 'doorkeeper/orm/sequel/access_token'
+          require 'doorkeeper/orm/sequel/application'
+        ensure
+          ::Sequel::Model.require_valid_table = old_value
+        end
       end
 
       def self.initialize_application_owner!
