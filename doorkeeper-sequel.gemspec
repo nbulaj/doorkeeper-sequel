@@ -28,8 +28,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'capybara', '~> 2.14', '>= 2.14.0'
   gem.add_development_dependency 'database_cleaner', '~> 1.5', '>= 1.5.0'
-  gem.add_development_dependency 'factory_girl', '~> 4.8', '>= 4.8.0'
+  gem.add_development_dependency 'factory_bot', '~> 4.8'
   gem.add_development_dependency 'generator_spec', '~> 0.9.4'
-  gem.add_development_dependency 'rspec-rails', '~> 3.5', '>= 3.5.0'
-  gem.add_development_dependency 'timecop', '~> 0.9.0'
+  gem.add_development_dependency 'rspec-rails', '~> 3.5'
 end
