@@ -1,4 +1,6 @@
 class User < Sequel::Model
+  include Doorkeeper::Orm::Sequel::SequelCompat
+
   class << self
     def authenticate!(name, password)
       User.where(name: name, password: password).first

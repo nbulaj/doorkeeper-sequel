@@ -53,11 +53,11 @@ module Doorkeeper
             first(refresh_token: refresh_token.to_s)
           end
 
-          def revoke_all_for(application_id, resource_owner)
+          def revoke_all_for(application_id, resource_owner, clock = Time)
             where(application_id: application_id,
                   resource_owner_id: resource_owner.id,
                   revoked_at: nil)
-              .each(&:revoke)
+              .update(revoked_at: clock.now.utc)
           end
 
           def matching_token_for(application, resource_owner_or_id, scopes)

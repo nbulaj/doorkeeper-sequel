@@ -10,6 +10,7 @@ gemfile:
   - gemfiles/rails-4.2.gemfile
   - gemfiles/rails-5.0.gemfile
   - gemfiles/rails-5.1.gemfile
+  - gemfiles/rails-5.2.gemfile
 
 rvm:
   - 2.1
@@ -26,3 +27,5 @@ matrix:
       gemfile: gemfiles/rails-5.0.gemfile
     - rvm: 2.1
       gemfile: gemfiles/rails-5.1.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/rails-5.2.gemfile
