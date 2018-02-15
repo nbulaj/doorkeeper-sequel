@@ -1,8 +1,6 @@
-require_relative 'models/application_mixin'
-
 module Doorkeeper
   class Application < Sequel::Model(:oauth_applications)
-    include Doorkeeper::Orm::Sequel::ApplicationMixin
+    include DoorkeeperSequel::ApplicationMixin
 
     one_to_many :authorized_tokens, class: 'Doorkeeper::AccessToken', conditions: { revoked_at: nil }
     many_to_many :authorized_applications, join_table: :oauth_access_tokens,

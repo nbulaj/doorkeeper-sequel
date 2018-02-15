@@ -1,5 +1,5 @@
 class User < Sequel::Model
-  include Doorkeeper::Orm::Sequel::SequelCompat
+  include DoorkeeperSequel::SequelCompat
 
   class << self
     def authenticate!(name, password)

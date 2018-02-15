@@ -1,15 +1,8 @@
-require_relative 'models/access_token_mixin'
-
 module Doorkeeper
   class AccessToken < Sequel::Model(:oauth_access_tokens)
-    include Doorkeeper::Orm::Sequel::AccessTokenMixin
+    include DoorkeeperSequel::AccessTokenMixin
 
     class << self
-      def delete_all_for(application_id, resource_owner)
-        where(application_id: application_id,
-              resource_owner_id: resource_owner.id).delete
-      end
-
       def active_for(resource_owner)
         where(resource_owner_id: resource_owner.id, revoked_at: nil)
       end

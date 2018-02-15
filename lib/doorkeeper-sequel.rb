@@ -1,17 +1,22 @@
 require 'doorkeeper-sequel/version'
 
 if defined?(::Rails)
-  require 'thor/group'
-
-  require 'doorkeeper-sequel/generators/concerns/migration_actions'
-  require 'doorkeeper-sequel/generators/application_owner_generator'
-  require 'doorkeeper-sequel/generators/migration_generator'
-  require 'doorkeeper-sequel/generators/previous_refresh_token_generator'
-
   require 'doorkeeper-sequel/railtie'
 end
 
 require 'doorkeeper'
+require 'thor/group'
+
+require 'doorkeeper-sequel/generators/concerns/migration_actions'
+require 'doorkeeper-sequel/generators/application_owner_generator'
+require 'doorkeeper-sequel/generators/migration_generator'
+require 'doorkeeper-sequel/generators/previous_refresh_token_generator'
+
+require 'doorkeeper-sequel/mixins/concerns/sequel_compat'
+require 'doorkeeper-sequel/mixins/access_token_mixin'
+require 'doorkeeper-sequel/mixins/access_grant_mixin'
+require 'doorkeeper-sequel/mixins/application_mixin'
+
 require 'doorkeeper/orm/sequel'
 
 module DoorkeeperSequel

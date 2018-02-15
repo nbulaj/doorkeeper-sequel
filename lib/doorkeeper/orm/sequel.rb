@@ -9,7 +9,6 @@ module Doorkeeper
         ::Sequel::Model.require_valid_table = false
 
         begin
-          require 'doorkeeper/orm/sequel/models/concerns/sequel_compat'
           require 'doorkeeper/orm/sequel/access_grant'
           require 'doorkeeper/orm/sequel/access_token'
           require 'doorkeeper/orm/sequel/application'
@@ -19,9 +18,9 @@ module Doorkeeper
       end
 
       def self.initialize_application_owner!
-        require 'doorkeeper/orm/sequel/models/concerns/ownership'
+        require 'doorkeeper-sequel/mixins/concerns/ownership'
 
-        Doorkeeper::Application.send :include, Doorkeeper::Orm::Sequel::Ownership
+        Doorkeeper::Application.send :include, DoorkeeperSequel::Ownership
       end
     end
   end

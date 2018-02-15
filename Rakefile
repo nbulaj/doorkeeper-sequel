@@ -32,6 +32,7 @@ class ExtensionIntegrator
       FileUtils.cp_r('spec/stubs/support/sequel.rb', 'spec/support/orm/sequel.rb')
       FileUtils.rm('spec/dummy/config/initializers/active_record_belongs_to_required_by_default.rb', force: true)
       FileUtils.rm('spec/dummy/config/initializers/new_framework_defaults.rb', force: true)
+      FileUtils.rm('spec/models/doorkeeper/base_record_spec.rb', force: true)
       # Remove generators specs because we are using our own
       FileUtils.rm(Dir.glob('spec/generators/*.rb'))
     end
