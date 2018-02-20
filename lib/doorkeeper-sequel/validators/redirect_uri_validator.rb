@@ -11,7 +11,7 @@ module DoorkeeperSequel
         else
           value.split.each do |val|
             uri = ::URI.parse(val)
-            return true if native_redirect_uri?(uri)
+            next if native_redirect_uri?(uri)
             validate_uri(uri, attribute)
           end
         end
@@ -25,11 +25,17 @@ module DoorkeeperSequel
         native_redirect_uri.present? && uri.to_s == native_redirect_uri.to_s
       end
 
+      def forbidden_uri?(uri)
+        Doorkeeper.configuration.respond_to?(:forbid_redirect_uri) &&
+          Doorkeeper.configuration.forbid_redirect_uri.call(uri)
+      end
+
       def validate_uri(uri, attribute)
         {
           fragment_present: uri.fragment.present?,
           relative_uri: uri.scheme.nil? || uri.host.nil?,
-          secured_uri: invalid_ssl_uri?(uri)
+          secured_uri: invalid_ssl_uri?(uri),
+          forbidden_uri: forbidden_uri?(uri)
         }.each do |error, condition|
           add_error(attribute, error) if condition
         end
