@@ -30,6 +30,10 @@ module DoorkeeperSequel
       def transaction(opts = {}, &block)
         db.transaction(opts, &block)
       end
+
+      def invalid?
+        !valid?
+      end
     end
 
     module ClassMethods
