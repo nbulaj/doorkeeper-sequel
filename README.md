@@ -41,6 +41,7 @@ Generate migrations:
 rake doorkeeper_sequel:generate:migration
 rake doorkeeper_sequel:generate:application_owner
 rake doorkeeper_sequel:generate:previous_refresh_token
+rake doorkeeper_sequel:generate:confidential_applications # for Doorkeeper >= 4.4
 ```
 
 ## Tests

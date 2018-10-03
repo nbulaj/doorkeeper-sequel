@@ -6,6 +6,12 @@ Reverse Chronological Order:
 
 https://github.com/nbulaj/doorkeeper-sequel/compare/1.3.2...master
 
+## `1.5.0` (2018-10-03)
+
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.5.0...1.4.0
+
+* Support Doorkeeper >= 4.2.7 && < 5.0.0
+
 ## `1.4.0` (2018-02-08)
 
 https://github.com/nbulaj/doorkeeper-sequel/compare/1.3.1...1.4.0

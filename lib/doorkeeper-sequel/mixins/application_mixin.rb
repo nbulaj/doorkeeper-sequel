@@ -32,7 +32,7 @@ module DoorkeeperSequel
         validates_presence [:name, :secret, :uid]
         validates_unique [:uid]
         validates_redirect_uri :redirect_uri
-        validates_includes [true, false], :confidential unless confidential.nil?
+        validates_includes [true, false], :confidential, allow_missing: true
 
         if respond_to?(:validate_owner?)
           validates_presence [:owner_id] if validate_owner?
