@@ -14,6 +14,7 @@ DB.create_table :oauth_applications do
 
   column :scopes, String, size: 255, null: false, default: ''
   column :redirect_uri, String
+  column :confidential, TrueClass, null: false, default: true
 
   column :created_at, DateTime
   column :updated_at, DateTime

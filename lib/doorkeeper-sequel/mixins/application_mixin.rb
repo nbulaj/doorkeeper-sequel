@@ -19,7 +19,7 @@ module DoorkeeperSequel
 
       add_association_dependencies access_grants: :delete, access_tokens: :delete
 
-      set_allowed_columns :name, :redirect_uri, :scopes
+      set_allowed_columns :name, :redirect_uri, :scopes, :confidential
 
       def before_validation
         generate_uid
@@ -32,6 +32,7 @@ module DoorkeeperSequel
         validates_presence [:name, :secret, :uid]
         validates_unique [:uid]
         validates_redirect_uri :redirect_uri
+        validates_includes [true, false], :confidential unless confidential.nil?
 
         if respond_to?(:validate_owner?)
           validates_presence [:owner_id] if validate_owner?
@@ -41,7 +42,11 @@ module DoorkeeperSequel
 
     module ClassMethods
       def by_uid_and_secret(uid, secret)
-        first(uid: uid.to_s, secret: secret.to_s)
+        app = by_uid(uid)
+        return unless app
+        return app if secret.blank? && !app.confidential?
+        return unless app.secret == secret
+        app
       end
 
       def by_uid(uid)
@@ -49,7 +54,11 @@ module DoorkeeperSequel
       end
 
       def supports_confidentiality?
-        columns.include?('confidential')
+        column_names.include?('confidential')
+      end
+
+      def column_names
+        columns.map(&:to_s)
       end
     end
 
