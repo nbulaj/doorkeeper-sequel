@@ -14,5 +14,10 @@ module Doorkeeper
       resource_access_tokens = AccessToken.active_for(resource_owner)
       where(id: resource_access_tokens.select_map(:application_id)).all
     end
+
+    def self.revoke_tokens_and_grants_for(id, resource_owner)
+      AccessToken.revoke_all_for(id, resource_owner)
+      AccessGrant.revoke_all_for(id, resource_owner)
+    end
   end
 end

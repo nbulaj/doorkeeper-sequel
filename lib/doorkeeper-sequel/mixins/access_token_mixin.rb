@@ -64,19 +64,27 @@ module DoorkeeperSequel
                             else
                               resource_owner_or_id
                             end
-        token = last_authorized_token_for(application.try(:id), resource_owner_id)
-        if token && scopes_match?(token.scopes, scopes, application.try(:scopes))
-          token
+        tokens = authorized_tokens_for(application.try(:id), resource_owner_id)
+        tokens.detect do |token|
+          scopes_match?(token.scopes, scopes, application.try(:scopes))
         end
       end
 
       def scopes_match?(token_scopes, param_scopes, app_scopes)
-        (token_scopes.blank? && param_scopes.blank?) ||
-          Doorkeeper::OAuth::Helpers::ScopeChecker.match?(
-            token_scopes.to_s,
-            param_scopes,
+        return true if token_scopes.empty? && param_scopes.empty?
+        (token_scopes.sort == param_scopes.sort) &&
+          Doorkeeper::OAuth::Helpers::ScopeChecker.valid?(
+            param_scopes.to_s,
+            Doorkeeper.configuration.scopes,
             app_scopes
           )
+      end
+
+      def authorized_tokens_for(application_id, resource_owner_id)
+        ordered_by(:created_at, :desc).
+          where(application_id: application_id,
+                resource_owner_id: resource_owner_id,
+                revoked_at: nil)
       end
 
       def find_or_create_for(application, resource_owner_id, scopes, expires_in, use_refresh_token)
@@ -95,11 +103,7 @@ module DoorkeeperSequel
       end
 
       def last_authorized_token_for(application_id, resource_owner_id)
-        where(application_id: application_id,
-              resource_owner_id: resource_owner_id,
-              revoked_at: nil)
-          .send(order_method, created_at_desc)
-          .first
+        authorized_tokens_for(application_id, resource_owner_id).first
       end
     end
 
@@ -114,8 +118,8 @@ module DoorkeeperSequel
     def as_json(_options = {})
       {
         resource_owner_id: resource_owner_id,
-        scopes: scopes,
-        expires_in_seconds: expires_in_seconds,
+        scope: scopes,
+        expires_in: expires_in_seconds,
         application: { uid: application.try(:uid) },
         created_at: created_at.to_i
       }

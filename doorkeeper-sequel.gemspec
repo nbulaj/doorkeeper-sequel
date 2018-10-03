@@ -25,6 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'sequel_polymorphic', '~> 0.2', '< 1.0'
   gem.add_runtime_dependency 'thor', '>= 0.18', '< 6'
 
+  gem.add_development_dependency 'coveralls'
   gem.add_development_dependency 'grape'
   gem.add_development_dependency 'capybara', '~> 2.14', '>= 2.14.0'
   gem.add_development_dependency 'database_cleaner', '~> 1.5', '>= 1.5.0'

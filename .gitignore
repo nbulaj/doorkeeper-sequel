@@ -10,3 +10,4 @@ log/*.log
 gemfiles/*.lock
 Gemfile.lock
 doorkeeper-sequel-*.gem
+coverage

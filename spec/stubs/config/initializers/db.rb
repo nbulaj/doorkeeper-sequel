@@ -36,6 +36,9 @@ DB.create_table :oauth_access_grants do
   column :created_at, DateTime, null: false
   column :revoked_at, DateTime
   column :scopes, String, size: 255
+
+  column :code_challenge, String
+  column :code_challenge_method, String
 end
 
 DB.create_table :oauth_access_tokens do

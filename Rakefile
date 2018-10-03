@@ -26,6 +26,7 @@ class ExtensionIntegrator
 
     def copy_spec_stubs!
       FileUtils.cp_r('spec/stubs/spec_helper_integration.rb', 'spec/spec_helper_integration.rb')
+      FileUtils.cp_r('spec/stubs/spec_helper_integration.rb', 'spec/spec_helper.rb')
       FileUtils.cp_r('spec/stubs/models/user.rb', 'spec/dummy/app/models/user.rb')
       FileUtils.cp_r('spec/stubs/config/initializers/db.rb', 'spec/dummy/config/initializers/db.rb')
       FileUtils.cp_r('spec/stubs/config/application.rb', 'spec/dummy/config/application.rb')
@@ -33,6 +34,8 @@ class ExtensionIntegrator
       FileUtils.rm('spec/dummy/config/initializers/active_record_belongs_to_required_by_default.rb', force: true)
       FileUtils.rm('spec/dummy/config/initializers/new_framework_defaults.rb', force: true)
       FileUtils.rm('spec/models/doorkeeper/base_record_spec.rb', force: true)
+      # TODO: write own specs
+      FileUtils.rm('spec/lib/orm/active_record/stale_records_cleaner_spec.rb', force: true)
       # Remove generators specs because we are using our own
       FileUtils.rm(Dir.glob('spec/generators/*.rb'))
     end
