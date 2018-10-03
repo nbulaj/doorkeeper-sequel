@@ -34,9 +34,26 @@ module DoorkeeperSequel
         validates_redirect_uri :redirect_uri
         validates_includes [true, false], :confidential, allow_missing: true
 
+        validate_scopes_match_configured if enforce_scopes?
+
         if respond_to?(:validate_owner?)
           validates_presence [:owner_id] if validate_owner?
         end
+      end
+
+      protected
+
+      def validate_scopes_match_configured
+        if scopes.present? &&
+           !Doorkeeper::OAuth::Helpers::ScopeChecker.valid?(scopes.to_s, Doorkeeper.configuration.scopes)
+
+          scope = 'sequel.errors.models.doorkeeper/application.attributes.scopes'
+          errors.add(:scopes, I18n.t(:not_match_configured, scope: scope))
+        end
+      end
+
+      def enforce_scopes?
+        Doorkeeper.configuration.enforce_configured_scopes?
       end
     end
 

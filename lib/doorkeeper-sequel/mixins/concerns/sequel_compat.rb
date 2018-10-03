@@ -34,6 +34,12 @@ module DoorkeeperSequel
       def invalid?
         !valid?
       end
+
+      def exists?
+        !self.empty?
+      end
+
+      alias_method :exist?, :exists?
     end
 
     module ClassMethods
@@ -56,6 +62,14 @@ module DoorkeeperSequel
           super(*args, &block)
         else
           super(id: args)
+        end
+      end
+
+      def exists?(*args)
+        if args.any?
+          !where(*args).empty?
+        else
+          !empty?
         end
       end
     end

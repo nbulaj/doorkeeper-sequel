@@ -16,7 +16,7 @@ module DoorkeeperSequel
       many_to_one :application, class: 'Doorkeeper::Application'
 
       set_allowed_columns :resource_owner_id, :application_id,
-                          :expires_in, :redirect_uri, :scopes, :code_challenge,
+                          :expires_in, :redirect_uri, :scopes, :code_challenge, :code_challenge_method
 
       def before_validation
         generate_token if new?
