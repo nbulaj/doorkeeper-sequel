@@ -14,5 +14,15 @@ namespace :doorkeeper_sequel do
     task :previous_refresh_token do
       DoorkeeperSequel::PreviousRefreshTokenGenerator.start
     end
+
+    desc 'Generate migration file for PKCE'
+    task :pkce do
+      DoorkeeperSequel::PkceGenerator.start
+    end
+
+    desc 'Add confidential column to Doorkeeper applications'
+    task :confidential_applications do
+      DoorkeeperSequel::ConfidentialApplicationsGenerator.start
+    end
   end
 end

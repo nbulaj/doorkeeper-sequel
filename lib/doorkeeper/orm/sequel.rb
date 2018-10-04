@@ -1,3 +1,5 @@
+require 'doorkeeper/orm/sequel/stale_records_cleaner'
+
 module Doorkeeper
   module Orm
     module Sequel

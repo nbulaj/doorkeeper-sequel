@@ -10,7 +10,7 @@ module Doorkeeper
 
         def clean_revoked
           @base_scope
-            .where(Sequel.~(revoked_at: nil))
+            .where(::Sequel.~(revoked_at: nil))
             .where { revoked_at < Time.current }
             .delete
         end
