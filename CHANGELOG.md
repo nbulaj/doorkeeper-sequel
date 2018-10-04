@@ -1,14 +1,20 @@
-# Doorkeeper-Sequel ORM 1.x Changelog
+# Doorkeeper-Sequel ORM Changelog
 
 Reverse Chronological Order:
 
 ## master
 
-https://github.com/nbulaj/doorkeeper-sequel/compare/1.3.2...master
+https://github.com/nbulaj/doorkeeper-sequel/compare/2.0.0...master
+
+## `2.0.0` (2018-10-04)
+
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.5.0...2.0.0
+
+* Support Doorkeeper >= 5.0.0
 
 ## `1.5.0` (2018-10-03)
 
-https://github.com/nbulaj/doorkeeper-sequel/compare/1.5.0...1.4.0
+https://github.com/nbulaj/doorkeeper-sequel/compare/1.4.0...1.5.0
 
 * Support Doorkeeper >= 4.2.7 && < 5.0.0
 
