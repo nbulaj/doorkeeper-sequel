@@ -15,9 +15,10 @@ gem 'sequel_polymorphic'
 
 gem 'doorkeeper', '>= 4.0.0'
 gem 'rails', '~> 5.0'
+gem 'bcrypt', '~> 3.1'
 
 group :test do
-  gem 'rspec-rails', '~> 3.4'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
