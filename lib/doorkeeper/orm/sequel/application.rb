@@ -9,6 +9,21 @@ module Doorkeeper
     def redirect_uri=(uris)
       super(uris.is_a?(Array) ? uris.join("\n") : uris)
     end
+	
+	def plaintext_secret
+      if secret_strategy.allows_restoring_secrets?
+        secret_strategy.restore_secret(self, :secret)
+      else
+        @raw_secret
+      end
+    end
+
+    def generate_secret
+      return unless secret.blank?
+
+      @raw_secret = UniqueToken.generate
+      secret_strategy.store_secret(self, :secret, @raw_secret)
+    end
 
     def self.authorized_for(resource_owner)
       resource_access_tokens = AccessToken.active_for(resource_owner)

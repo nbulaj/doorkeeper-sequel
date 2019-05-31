@@ -6,9 +6,12 @@ module DoorkeeperSequel
       def validates_redirect_uri(attribute)
         value = self[attribute]
 
-        if value.blank?
+		# Allow nil? but do not allow empty string
+        if value.blank? && !value.nil?
           add_error(attribute, :blank)
-        else
+        elsif value.nil?
+		  true
+		else
           value.split.each do |val|
             uri = ::URI.parse(val)
             next if native_redirect_uri?(uri)
@@ -33,7 +36,6 @@ module DoorkeeperSequel
       def validate_uri(uri, attribute)
         {
           fragment_present: uri.fragment.present?,
-          relative_uri: uri.scheme.nil? || uri.host.nil?,
           secured_uri: invalid_ssl_uri?(uri),
           forbidden_uri: forbidden_uri?(uri)
         }.each do |error, condition|

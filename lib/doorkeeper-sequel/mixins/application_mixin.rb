@@ -46,9 +46,12 @@ module DoorkeeperSequel
       protected
 
       def validate_scopes_match_configured
-        if scopes.present? &&
-           !Doorkeeper::OAuth::Helpers::ScopeChecker.valid?(scopes.to_s, Doorkeeper.configuration.scopes)
-
+	    scope_checker = Doorkeeper::OAuth::Helpers::ScopeChecker::Validator.new(
+          scopes.to_s,
+          Doorkeeper.configuration.scopes,
+          nil, nil
+        )
+        if scopes.present? && !scope_checker.valid?
           scope = 'sequel.errors.models.doorkeeper/application.attributes.scopes'
           errors.add(:scopes, I18n.t(:not_match_configured, scope: scope))
         end
@@ -75,9 +78,25 @@ module DoorkeeperSequel
       def column_names
         columns.map(&:to_s)
       end
+	  
+      def secret_strategy
+        ::Doorkeeper.configuration.application_secret_strategy
+      end
+
+      def fallback_secret_strategy
+        ::Doorkeeper.configuration.application_secret_fallback_strategy
+      end
     end
 
     private
+	  
+    def secret_strategy
+      ::Doorkeeper.configuration.application_secret_strategy
+    end
+
+    def fallback_secret_strategy
+      ::Doorkeeper.configuration.application_secret_fallback_strategy
+    end
 
     def has_scopes?
       Doorkeeper::Application.columns.include?('scopes')
@@ -90,5 +109,23 @@ module DoorkeeperSequel
     def generate_secret
       self.secret = UniqueToken.generate if secret.blank? && new?
     end
+	
+	def secret_matches?(input)
+      # return false if either is nil, since secure_compare depends on strings
+      # but Application secrets MAY be nil depending on confidentiality.
+      return false if input.nil? || secret.nil?
+
+      # When matching the secret by comparer function, all is well.
+      return true if secret_strategy.secret_matches?(input, secret)
+
+      # When fallback lookup is enabled, ensure applications
+      # with plain secrets can still be found
+      if fallback_secret_strategy
+        fallback_secret_strategy.secret_matches?(input, secret)
+      else
+        false
+      end
+    end
+	
   end
 end

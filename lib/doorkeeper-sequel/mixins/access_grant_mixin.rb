@@ -36,12 +36,28 @@ module DoorkeeperSequel
 
       def pkce_supported?
         respond_to? :code_challenge
+      end	
+	  
+      def plaintext_token
+        if secret_strategy.allows_restoring_secrets?
+          secret_strategy.restore_secret(self, :token)
+        else
+          @raw_token
+        end
+      end
+	  
+      def update_column(attr, value)
+        update(attr => value)
       end
     end
 
     module ClassMethods
       def by_token(token)
-        first(token: token.to_s)
+        find_by_plaintext_token(:token, token)
+      end
+	  
+      def find_by(params)
+        first(params)
       end
 
       def revoke_all_for(application_id, resource_owner, clock = Time)
@@ -59,12 +75,51 @@ module DoorkeeperSequel
       def pkce_supported?
         new.pkce_supported?
       end
+
+      def find_by_plaintext_token(attr, token)
+        token = token.to_s
+
+        first(attr => secret_strategy.transform_secret(token)) ||
+          find_by_fallback_token(attr, token)
+      end
+	  
+      def find_by_fallback_token(attr, plain_secret)
+        return nil unless fallback_secret_strategy
+
+        # Use the previous strategy to look up
+        stored_token = fallback_secret_strategy.transform_secret(plain_secret)
+        first(attr => stored_token).tap do |resource|
+          return nil unless resource
+
+          upgrade_fallback_value resource, attr, plain_secret
+        end
+      end
+	  
+      def secret_strategy
+        ::Doorkeeper.configuration.token_secret_strategy
+      end
+      
+      def fallback_secret_strategy
+        ::Doorkeeper.configuration.token_secret_fallback_strategy
+      end
     end
-
+    
+    def secret_strategy
+      ::Doorkeeper.configuration.token_secret_strategy
+    end
+      
+    def fallback_secret_strategy
+      ::Doorkeeper.configuration.token_secret_fallback_strategy
+    end
+	  
     private
-
+    # Generates token value with UniqueToken class.
+    #
+    # @return [String] token value
+    #
     def generate_token
-      self.token = UniqueToken.generate
+      @raw_token = UniqueToken.generate
+      secret_strategy.store_secret(self, :token, @raw_token)
     end
   end
 end
