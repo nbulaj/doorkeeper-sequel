@@ -19,6 +19,8 @@ module DoorkeeperSequel
         save(columns: [column.to_sym], validate: false)
       end
 
+      alias_method :update_column, :update_attribute
+
       def update_attributes(*args)
         update(*args)
       end
