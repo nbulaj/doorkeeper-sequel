@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.0.0'
 
-  gem.add_runtime_dependency 'doorkeeper', '>= 5.0.0'
+  gem.add_runtime_dependency 'doorkeeper', '>= 5.0.0', '< 5.2'
   gem.add_runtime_dependency 'sequel', '>= 4.0.0', '< 6'
   gem.add_runtime_dependency 'sequel_polymorphic', '~> 0.2', '< 1.0'
   gem.add_runtime_dependency 'thor', '>= 0.18', '< 6'

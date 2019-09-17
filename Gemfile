@@ -13,7 +13,7 @@ end
 gem 'sequel', '>= 4.0'
 gem 'sequel_polymorphic'
 
-gem 'doorkeeper', '>= 4.0.0'
+gem 'doorkeeper', '>= 4.0.0', '< 5.2'
 gem 'rails', '~> 5.0'
 gem 'bcrypt', '~> 3.1'
 
