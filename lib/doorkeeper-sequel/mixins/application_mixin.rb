@@ -74,6 +74,10 @@ module DoorkeeperSequel
       def by_uid(uid)
         first(uid: uid.to_s)
       end
+	  
+      def find_by(params)
+        first(params)
+      end
 
       def column_names
         columns.map(&:to_s)
