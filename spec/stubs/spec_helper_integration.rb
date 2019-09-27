@@ -1,17 +1,17 @@
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 
 DOORKEEPER_ORM = :sequel
 
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
-require 'capybara/rspec'
-require 'dummy/config/environment'
-require 'rspec/rails'
-require 'generator_spec/test_case'
+require "capybara/rspec"
+require "dummy/config/environment"
+require "rspec/rails"
+require "generator_spec/test_case"
 
 # Load JRuby SQLite3 if in that platform
 begin
-  require 'jdbc/sqlite3'
+  require "jdbc/sqlite3"
   Jdbc::SQLite3.load_driver
 rescue LoadError
 end
@@ -22,7 +22,7 @@ Rails.logger.info "====> Ruby version: #{RUBY_VERSION}"
 
 require "support/orm/#{DOORKEEPER_ORM}"
 
-ENGINE_RAILS_ROOT = File.join(File.dirname(__FILE__), '../')
+ENGINE_RAILS_ROOT = File.join(File.dirname(__FILE__), "../")
 
 Dir["#{File.dirname(__FILE__)}/support/{dependencies,helpers,shared}/*.rb"].each { |f| require f }
 
@@ -45,5 +45,5 @@ RSpec.configure do |config|
     DB.transaction(rollback: :always, auto_savepoint: true) { example.run }
   end
 
-  config.order = 'random'
+  config.order = "random"
 end

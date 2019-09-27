@@ -6,12 +6,17 @@ module DoorkeeperSequel
       def validates_redirect_uri(attribute)
         value = self[attribute]
 
+        # Allow nil? but do not allow empty string
         if value.blank?
-          add_error(attribute, :blank)
+          if Doorkeeper.configuration.allow_blank_redirect_uri?(self)
+            true
+          else
+            add_error(attribute, :blank)
+          end
         else
           value.split.each do |val|
+            next if oob_redirect_uri?(val)
             uri = ::URI.parse(val)
-            next if native_redirect_uri?(uri)
             validate_uri(uri, attribute)
           end
         end
@@ -20,6 +25,10 @@ module DoorkeeperSequel
       end
 
       private
+
+      def oob_redirect_uri?(uri)
+        ::Doorkeeper::OAuth::NonStandard::IETF_WG_OAUTH2_OOB_METHODS.include?(uri)
+      end
 
       def native_redirect_uri?(uri)
         native_redirect_uri.present? && uri.to_s == native_redirect_uri.to_s
@@ -33,17 +42,28 @@ module DoorkeeperSequel
       def validate_uri(uri, attribute)
         {
           fragment_present: uri.fragment.present?,
-          relative_uri: uri.scheme.nil? || uri.host.nil?,
           secured_uri: invalid_ssl_uri?(uri),
-          forbidden_uri: forbidden_uri?(uri)
+          forbidden_uri: forbidden_uri?(uri),
+          unspecified_scheme: unspecified_scheme?(uri),
+          relative_uri: relative_uri?(uri),
         }.each do |error, condition|
           add_error(attribute, error) if condition
         end
       end
 
+      def unspecified_scheme?(uri)
+        return true if uri.opaque.present?
+
+        %w[localhost].include?(uri.try(:scheme))
+      end
+
+      def relative_uri?(uri)
+        uri.scheme.nil? && uri.host.nil?
+      end
+
       def invalid_ssl_uri?(uri)
         forces_ssl = Doorkeeper.configuration.force_ssl_in_redirect_uri
-        non_https = uri.try(:scheme) == 'http'
+        non_https = uri.try(:scheme) == "http"
 
         if forces_ssl.respond_to?(:call)
           forces_ssl.call(uri) && non_https
@@ -57,7 +77,7 @@ module DoorkeeperSequel
       end
 
       def add_error(attribute, error)
-        scope = 'sequel.errors.models.doorkeeper/application.attributes.redirect_uri'
+        scope = "sequel.errors.models.doorkeeper/application.attributes.redirect_uri"
         errors.add(attribute, I18n.t(error, scope: scope))
       end
     end

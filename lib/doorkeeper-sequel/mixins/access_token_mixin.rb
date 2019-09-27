@@ -4,21 +4,24 @@ module DoorkeeperSequel
 
     include SequelCompat
     include Doorkeeper::OAuth::Helpers
-    include Doorkeeper::Models::Expirable
     include Doorkeeper::Models::Revocable
+    include Doorkeeper::Models::Expirable
+    include Doorkeeper::Models::Reusable
     include Doorkeeper::Models::Accessible
+    include Doorkeeper::Models::SecretStorable
     include Doorkeeper::Models::Scopes
 
     included do
       plugin :validation_helpers
       plugin :timestamps
 
-      many_to_one :application, class: 'Doorkeeper::Application'
+      many_to_one :application, class: "Doorkeeper::Application"
 
       attr_writer :use_refresh_token
 
       set_allowed_columns :application_id, :resource_owner_id, :expires_in,
-                          :scopes, :use_refresh_token, :previous_refresh_token
+                          :scopes, :use_refresh_token, :previous_refresh_token,
+                          :token, :refresh_token
 
       def before_validation
         if new?
@@ -44,11 +47,15 @@ module DoorkeeperSequel
 
     module ClassMethods
       def by_token(token)
-        first(token: token.to_s)
+        find_by_plaintext_token(:token, token)
+      end
+
+      def find_by(params)
+        first(params)
       end
 
       def by_refresh_token(refresh_token)
-        first(refresh_token: refresh_token.to_s)
+        find_by_plaintext_token(:refresh_token, refresh_token)
       end
 
       def revoke_all_for(application_id, resource_owner, clock = Time)
@@ -64,33 +71,46 @@ module DoorkeeperSequel
                             else
                               resource_owner_or_id
                             end
-        tokens = authorized_tokens_for(application.try(:id), resource_owner_id)
+        tokens = authorized_tokens_for(application.try(:id), resource_owner_id).all
         tokens.detect do |token|
           scopes_match?(token.scopes, scopes, application.try(:scopes))
         end
       end
 
+      def find_matching_token(relation, application, scopes)
+        return nil unless relation
+
+        matching_tokens = []
+
+        tokens = relation.select do |token|
+          scopes_match?(token.scopes, scopes, application.try(:scopes))
+        end
+
+        matching_tokens.concat(tokens)
+        matching_tokens.max_by(&:created_at)
+      end
+
       def scopes_match?(token_scopes, param_scopes, app_scopes)
         return true if token_scopes.empty? && param_scopes.empty?
+
         (token_scopes.sort == param_scopes.sort) &&
           Doorkeeper::OAuth::Helpers::ScopeChecker.valid?(
-            param_scopes.to_s,
-            Doorkeeper.configuration.scopes,
-            app_scopes
+            scope_str: param_scopes.to_s,
+            server_scopes: Doorkeeper.configuration.scopes,
+            app_scopes: app_scopes,
           )
       end
 
       def authorized_tokens_for(application_id, resource_owner_id)
-        ordered_by(:created_at, :desc).
-          where(application_id: application_id,
-                resource_owner_id: resource_owner_id,
-                revoked_at: nil)
+        where(application_id: application_id,
+              resource_owner_id: resource_owner_id,
+              revoked_at: nil).order(Sequel.desc(:created_at))
       end
 
       def find_or_create_for(application, resource_owner_id, scopes, expires_in, use_refresh_token)
         if Doorkeeper.configuration.reuse_access_token
           access_token = matching_token_for(application, resource_owner_id, scopes)
-          return access_token if access_token && !access_token.expired?
+          return access_token if access_token&.reusable?
         end
 
         create!(
@@ -98,20 +118,29 @@ module DoorkeeperSequel
           resource_owner_id: resource_owner_id,
           scopes: scopes.to_s,
           expires_in: expires_in,
-          use_refresh_token: use_refresh_token
+          use_refresh_token: use_refresh_token,
         )
       end
 
       def last_authorized_token_for(application_id, resource_owner_id)
         authorized_tokens_for(application_id, resource_owner_id).first
       end
+
+      def secret_strategy
+        ::Doorkeeper.configuration.token_secret_strategy
+      end
+
+      def fallback_secret_strategy
+        ::Doorkeeper.configuration.token_secret_fallback_strategy
+      end
     end
 
     def token_type
-      'Bearer'
+      "Bearer"
     end
 
     def use_refresh_token?
+      @use_refresh_token ||= false
       !!@use_refresh_token
     end
 
@@ -121,7 +150,7 @@ module DoorkeeperSequel
         scope: scopes,
         expires_in: expires_in_seconds,
         application: { uid: application.try(:uid) },
-        created_at: created_at.to_i
+        created_at: created_at.to_i,
       }
     end
 
@@ -135,32 +164,50 @@ module DoorkeeperSequel
       accessible? && includes_scope?(*scopes)
     end
 
+    def plaintext_refresh_token
+      if secret_strategy.allows_restoring_secrets?
+        secret_strategy.restore_secret(self, :refresh_token)
+      else
+        @raw_refresh_token
+      end
+    end
+
+    def plaintext_token
+      if secret_strategy.allows_restoring_secrets?
+        secret_strategy.restore_secret(self, :token)
+      else
+        @raw_token
+      end
+    end
+
     private
 
     def generate_refresh_token
-      self[:refresh_token] = UniqueToken.generate
+      @raw_refresh_token = UniqueToken.generate
+      secret_strategy.store_secret(self, :refresh_token, @raw_refresh_token)
     end
 
     def generate_token
       self[:created_at] ||= Time.now.utc
 
-      generator = token_generator
-      unless generator.respond_to?(:generate)
-        raise Doorkeeper::Errors::UnableToGenerateToken, "#{generator} does not respond to `.generate`."
-      end
-
-      self[:token] = generator.generate(
+      @raw_token = token_generator.generate(
         resource_owner_id: resource_owner_id,
         scopes: scopes,
         application: application,
         expires_in: expires_in,
-        created_at: created_at
+        created_at: created_at,
       )
+      secret_strategy.store_secret(self, :token, @raw_token)
+      @raw_token
     end
 
     def token_generator
       generator_name = Doorkeeper.configuration.access_token_generator
-      generator_name.constantize
+      generator = generator_name.constantize
+
+      return generator if generator.respond_to?(:generate)
+
+      raise Doorkeeper::Errors::UnableToGenerateToken, "#{generator} does not respond to `.generate`."
     rescue NameError
       raise Doorkeeper::Errors::TokenGeneratorNotFound, "#{generator_name} not found"
     end

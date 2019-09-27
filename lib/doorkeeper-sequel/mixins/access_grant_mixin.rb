@@ -7,16 +7,17 @@ module DoorkeeperSequel
     include Doorkeeper::Models::Expirable
     include Doorkeeper::Models::Revocable
     include Doorkeeper::Models::Accessible
+    include Doorkeeper::Models::SecretStorable
     include Doorkeeper::Models::Scopes
 
     included do
       plugin :validation_helpers
       plugin :timestamps
-
-      many_to_one :application, class: 'Doorkeeper::Application'
+      many_to_one :application, class: "Doorkeeper::Application"
 
       set_allowed_columns :resource_owner_id, :application_id,
-                          :expires_in, :redirect_uri, :scopes, :code_challenge, :code_challenge_method
+                          :expires_in, :redirect_uri, :scopes, :code_challenge, :code_challenge_method,
+                          :token
 
       def before_validation
         generate_token if new?
@@ -29,19 +30,15 @@ module DoorkeeperSequel
                             :token, :expires_in, :redirect_uri]
         validates_unique [:token]
       end
-
-      def uses_pkce?
-        pkce_supported? && code_challenge.present?
-      end
-
-      def pkce_supported?
-        respond_to? :code_challenge
-      end
     end
 
     module ClassMethods
       def by_token(token)
-        first(token: token.to_s)
+        find_by_plaintext_token(:token, token)
+      end
+
+      def find_by(params)
+        first(params)
       end
 
       def revoke_all_for(application_id, resource_owner, clock = Time)
@@ -53,18 +50,32 @@ module DoorkeeperSequel
 
       def generate_code_challenge(code_verifier)
         padded_result = Base64.urlsafe_encode64(Digest::SHA256.digest(code_verifier))
-        padded_result.split('=')[0] # Remove any trailing '='
+        padded_result.split("=")[0] # Remove any trailing '='
       end
 
       def pkce_supported?
         new.pkce_supported?
       end
+
+      def secret_strategy
+        ::Doorkeeper.configuration.token_secret_strategy
+      end
+
+      def fallback_secret_strategy
+        ::Doorkeeper.configuration.token_secret_fallback_strategy
+      end
     end
 
     private
 
+    # Generates token value with UniqueToken class.
+    #
+    # @return [String] token value
+    #
     def generate_token
-      self.token = UniqueToken.generate
+      return nil unless self[:token].nil?
+      @raw_token = UniqueToken.generate
+      secret_strategy.store_secret(self, :token, @raw_token)
     end
   end
 end
