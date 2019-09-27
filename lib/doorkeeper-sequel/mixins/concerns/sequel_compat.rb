@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DoorkeeperSequel
   module SequelCompat
     extend ActiveSupport::Concern
@@ -8,9 +10,7 @@ module DoorkeeperSequel
       plugin :active_model
 
       # Sequel 4.47 and higher deprecated #set_allowed_columns
-      if (::Sequel::MAJOR >= 4 && ::Sequel::MINOR >= 47) || ::Sequel::MAJOR >= 5
-        plugin :whitelist_security
-      end
+      plugin :whitelist_security if (::Sequel::MAJOR >= 4 && ::Sequel::MINOR >= 47) || ::Sequel::MAJOR >= 5
 
       self.raise_on_save_failure = false
 
@@ -38,7 +38,7 @@ module DoorkeeperSequel
       end
 
       def exists?
-        !self.empty?
+        !empty?
       end
 
       alias_method :exist?, :exists?

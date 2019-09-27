@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Doorkeeper
   class AccessToken < Sequel::Model(:oauth_access_tokens)
     include DoorkeeperSequel::AccessTokenMixin

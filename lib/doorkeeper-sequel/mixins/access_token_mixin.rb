@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DoorkeeperSequel
   module AccessTokenMixin
     extend ActiveSupport::Concern
@@ -97,7 +99,7 @@ module DoorkeeperSequel
           Doorkeeper::OAuth::Helpers::ScopeChecker.valid?(
             scope_str: param_scopes.to_s,
             server_scopes: Doorkeeper.configuration.scopes,
-            app_scopes: app_scopes,
+            app_scopes: app_scopes
           )
       end
 
@@ -118,7 +120,7 @@ module DoorkeeperSequel
           resource_owner_id: resource_owner_id,
           scopes: scopes.to_s,
           expires_in: expires_in,
-          use_refresh_token: use_refresh_token,
+          use_refresh_token: use_refresh_token
         )
       end
 
@@ -195,7 +197,7 @@ module DoorkeeperSequel
         scopes: scopes,
         application: application,
         expires_in: expires_in,
-        created_at: created_at,
+        created_at: created_at
       )
       secret_strategy.store_secret(self, :token, @raw_token)
       @raw_token

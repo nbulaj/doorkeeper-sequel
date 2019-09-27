@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DoorkeeperSequel
   module AccessGrantMixin
     extend ActiveSupport::Concern
@@ -26,8 +28,8 @@ module DoorkeeperSequel
 
       def validate
         super
-        validates_presence [:resource_owner_id, :application_id,
-                            :token, :expires_in, :redirect_uri]
+        validates_presence %i[resource_owner_id application_id
+                              token expires_in redirect_uri]
         validates_unique [:token]
       end
     end
@@ -74,6 +76,7 @@ module DoorkeeperSequel
     #
     def generate_token
       return nil unless self[:token].nil?
+
       @raw_token = UniqueToken.generate
       secret_strategy.store_secret(self, :token, @raw_token)
     end

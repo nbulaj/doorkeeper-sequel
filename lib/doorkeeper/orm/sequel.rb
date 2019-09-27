@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "doorkeeper/orm/sequel/stale_records_cleaner"
 
 module Doorkeeper
@@ -11,7 +13,6 @@ module Doorkeeper
         ::Sequel::Model.require_valid_table = false
         ::Sequel::Model.strict_param_setting = false
         ::Sequel::Model.plugin :json_serializer
-
 
         begin
           require "doorkeeper/orm/sequel/access_grant"

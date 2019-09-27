@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DoorkeeperSequel
   module RedirectUriValidator
     extend ActiveSupport::Concern
@@ -16,6 +18,7 @@ module DoorkeeperSequel
         else
           value.split.each do |val|
             next if oob_redirect_uri?(val)
+
             uri = ::URI.parse(val)
             validate_uri(uri, attribute)
           end
