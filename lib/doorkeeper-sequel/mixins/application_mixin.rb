@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../validators/redirect_uri_validator"
 
 module DoorkeeperSequel
@@ -32,7 +34,7 @@ module DoorkeeperSequel
 
       def validate
         super
-        validates_presence [:name, :secret, :uid]
+        validates_presence %i[name secret uid]
         validates_unique [:uid]
         validates_redirect_uri :redirect_uri
         validates_includes [true, false], :confidential, allow_missing: true
@@ -73,6 +75,7 @@ module DoorkeeperSequel
         return unless app
         return app if secret.blank? && !app.confidential?
         return unless app.secret_matches?(secret)
+
         app
       end
 

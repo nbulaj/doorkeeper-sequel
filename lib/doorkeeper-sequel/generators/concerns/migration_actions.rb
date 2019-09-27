@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DoorkeeperSequel
   module MigrationActions
     extend ::ActiveSupport::Concern
@@ -9,7 +11,7 @@ module DoorkeeperSequel
     end
 
     def migration_template
-      File.expand_path('../templates/migration.rb', __FILE__)
+      File.expand_path("templates/migration.rb", __dir__)
     end
 
     private
@@ -19,20 +21,20 @@ module DoorkeeperSequel
     end
 
     def new_migration_number
-      current_number = current_migration_number('db/migrate')
+      current_number = current_migration_number("db/migrate")
 
       # possible numeric migration
-      if current_number && current_number.start_with?('0')
+      if current_number&.start_with?("0")
         # generate the same name as used by the developer
-        "%.#{current_number.length}d" % (current_number.to_i + 1)
+        format("%.#{current_number.length}d", (current_number.to_i + 1))
       else
-        Time.now.utc.strftime('%Y%m%d%H%M%S')
+        Time.now.utc.strftime("%Y%m%d%H%M%S")
       end
     end
 
     def current_migration_number(dirname)
       migration_lookup_at(dirname).collect do |file|
-        File.basename(file).split('_').first
+        File.basename(file).split("_").first
       end.max
     end
 

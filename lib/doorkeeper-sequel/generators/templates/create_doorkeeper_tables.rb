@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Sequel.migration do
   change do
     create_table :oauth_applications do
@@ -7,7 +9,7 @@ Sequel.migration do
       column :uid, String, size: 255, null: false, index: { unique: true }
       column :secret, String, size: 255, null: false
 
-      column :scopes, String, size: 255, null: false, default: ''
+      column :scopes, String, size: 255, null: false, default: ""
       column :redirect_uri, String
       column :confidential, TrueClass, null: false, default: true
 
@@ -50,7 +52,7 @@ Sequel.migration do
       # previous tokens are revoked as soon as a new access token is created.
       # Comment out this line if you'd rather have refresh tokens
       # instantly revoked.
-      column :previous_refresh_token, String, size: 255, null: false, default: ''
+      column :previous_refresh_token, String, size: 255, null: false, default: ""
       column :expires_in, Integer
       column :revoked_at, DateTime
       column :created_at, DateTime, null: false

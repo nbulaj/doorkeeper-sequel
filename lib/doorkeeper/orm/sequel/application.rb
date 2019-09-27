@@ -1,10 +1,18 @@
+# frozen_string_literal: true
+
 module Doorkeeper
   class Application < Sequel::Model(:oauth_applications)
     include DoorkeeperSequel::ApplicationMixin
 
-    one_to_many :authorized_tokens, class: "Doorkeeper::AccessToken", conditions: { revoked_at: nil }
-    many_to_many :authorized_applications, join_table: :oauth_access_tokens,
-                                           class: self, left_key: :id, right_key: :application_id
+    one_to_many :authorized_tokens,
+                class: "Doorkeeper::AccessToken",
+                conditions: { revoked_at: nil }
+
+    many_to_many :authorized_applications,
+                 join_table: :oauth_access_tokens,
+                 class: self,
+                 left_key: :id,
+                 right_key: :application_id
 
     def redirect_uri=(uris)
       super(uris.is_a?(Array) ? uris.join("\n") : uris)

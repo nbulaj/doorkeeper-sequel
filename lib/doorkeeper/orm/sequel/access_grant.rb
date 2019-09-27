@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Doorkeeper
   class AccessGrant < Sequel::Model(:oauth_access_grants)
     include DoorkeeperSequel::AccessGrantMixin

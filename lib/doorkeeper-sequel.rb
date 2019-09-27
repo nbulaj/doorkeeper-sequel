@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 require "doorkeeper-sequel/version"
 
-if defined?(::Rails)
-  require "doorkeeper-sequel/railtie"
-end
+require "doorkeeper-sequel/railtie" if defined?(::Rails)
 
 require "doorkeeper"
 require "doorkeeper/redirect_uri_validator"
@@ -24,7 +24,7 @@ require "doorkeeper/orm/sequel"
 
 module DoorkeeperSequel
   def load_locales
-    locales_dir = File.expand_path("../../config/locales", __FILE__)
+    locales_dir = File.expand_path("../config/locales", __dir__)
     locales = Dir[File.join(locales_dir, "*.yml")]
 
     I18n.load_path |= locales
