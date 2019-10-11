@@ -84,7 +84,7 @@ Thanks.
 
 Doorkeeper-sequel gem is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
-Copyright (c) 2016-2018 Nikita Bulai (bulajnikita@gmail.com).
+Copyright (c) 2016-2019 Nikita Bulai (bulajnikita@gmail.com).
 
 ---
 
