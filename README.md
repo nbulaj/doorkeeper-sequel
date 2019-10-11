@@ -21,9 +21,13 @@ To start using the Doorkeeper Sequel ORM, add to your Gemfile:
 gem 'doorkeeper', '~> 4.3'
 gem 'doorkeeper-sequel', '~> 1.5'
 
-# For Doorkeeper 5.x
+# For Doorkeeper 5.0.x
 gem 'doorkeeper', '~> 5.0'
 gem 'doorkeeper-sequel', '~> 2.0'
+
+# For Doorkeeper 5.1.x, 5.2.x
+gem 'doorkeeper', '~> 5.1' # or '~> 5.2' 
+gem 'doorkeeper-sequel', '~> 2.1'
 ```
 
 Or you can use git `master` branch for the latest gem version:
