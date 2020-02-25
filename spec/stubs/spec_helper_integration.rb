@@ -25,9 +25,7 @@ require "support/orm/#{DOORKEEPER_ORM}"
 ENGINE_RAILS_ROOT = File.join(File.dirname(__FILE__), "../")
 
 Dir["#{File.dirname(__FILE__)}/support/{dependencies,helpers,shared}/*.rb"].each { |f| require f }
-
-# Remove after dropping support of Rails 4.2
-require "#{File.dirname(__FILE__)}/support/http_method_shim.rb"
+Dir["#{ENGINE_RAILS_ROOT}/doorkeeper/lib/doorkeeper/config/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!

@@ -53,6 +53,11 @@ module DoorkeeperSequel
       def confidential?
         confidential.present? && !!confidential
       end
+	  
+	  def renew_secret
+        @raw_secret = Doorkeeper::OAuth::Helpers::UniqueToken.generate
+        secret_strategy.store_secret(self, :secret, @raw_secret)
+      end
 
       protected
 

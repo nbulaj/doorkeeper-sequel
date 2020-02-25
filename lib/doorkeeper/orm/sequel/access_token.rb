@@ -20,6 +20,10 @@ module Doorkeeper
       def refresh_token_revoked_on_use?
         columns.include?(:previous_refresh_token)
       end
+	  
+	  def polymorphic_resource_owner?
+		columns.include?(:resource_owner_type)
+	  end
     end
   end
 end

@@ -39,6 +39,8 @@ class ExtensionIntegrator
       FileUtils.rm("spec/lib/orm/active_record/stale_records_cleaner_spec.rb", force: true)
       # Remove generators specs because we are using our own
       FileUtils.rm(Dir.glob("spec/generators/*.rb"))
+      FileUtils.rm(Dir.glob("spec/controllers/*.rb"))
+      FileUtils.rm(Dir.glob("spec/lib/oauth/*.rb"))
     end
   end
 end

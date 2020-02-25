@@ -17,13 +17,15 @@ module DoorkeeperSequel
       plugin :validation_helpers
       plugin :timestamps
 
+
       many_to_one :application, class: "Doorkeeper::Application"
+	  many_to_one :resource_owner, polymorphic: true
 
       attr_writer :use_refresh_token
 
-      set_allowed_columns :application_id, :resource_owner_id, :expires_in,
-                          :scopes, :use_refresh_token, :previous_refresh_token,
-                          :token, :refresh_token
+      set_allowed_columns :application_id, :resource_owner_id, :resource_owner_type,
+                                           :expires_in, :scopes, :use_refresh_token, 
+                                           :previous_refresh_token, :token, :refresh_token
 
       def before_validation
         if new?
@@ -66,6 +68,10 @@ module DoorkeeperSequel
               revoked_at: nil)
           .update(revoked_at: clock.now.utc)
       end
+	  
+	  def by_previous_refresh_token(previous_refresh_token)
+        where(refresh_token: previous_refresh_token).first
+      end
 
       def matching_token_for(application, resource_owner_or_id, scopes)
         resource_owner_id = if resource_owner_or_id.respond_to?(:to_key)
@@ -104,6 +110,7 @@ module DoorkeeperSequel
       end
 
       def authorized_tokens_for(application_id, resource_owner_id)
+	    resource_owner_id = resource_owner_id&.id if polymorphic_resource_owner? && !resource_owner_id.is_a?(Integer)
         where(application_id: application_id,
               resource_owner_id: resource_owner_id,
               revoked_at: nil).order(Sequel.desc(:created_at))
@@ -135,6 +142,10 @@ module DoorkeeperSequel
       def fallback_secret_strategy
         ::Doorkeeper.configuration.token_secret_fallback_strategy
       end
+
+	  def polymorphic_resource_owner?
+		columns.include?(:resource_owner_type)
+	  end
     end
 
     def token_type
@@ -153,7 +164,11 @@ module DoorkeeperSequel
         expires_in: expires_in_seconds,
         application: { uid: application.try(:uid) },
         created_at: created_at.to_i,
-      }
+      }.tap do |json|
+        if Doorkeeper.configuration.polymorphic_resource_owner?
+          json[:resource_owner_type] = resource_owner_type
+        end
+      end
     end
 
     # It indicates whether the tokens have the same credential
@@ -181,9 +196,23 @@ module DoorkeeperSequel
         @raw_token
       end
     end
+	
+	# Revokes token with `:refresh_token` equal to `:previous_refresh_token`
+    # and clears `:previous_refresh_token` attribute.
+    #
+    def revoke_previous_refresh_token!
+      return unless self.class.refresh_token_revoked_on_use?
+
+      old_refresh_token&.revoke
+      update(previous_refresh_token: "")
+    end
 
     private
 
+    def old_refresh_token
+      @old_refresh_token ||= self.class.by_previous_refresh_token(previous_refresh_token)
+    end
+	
     def generate_refresh_token
       @raw_refresh_token = UniqueToken.generate
       secret_strategy.store_secret(self, :refresh_token, @raw_refresh_token)
