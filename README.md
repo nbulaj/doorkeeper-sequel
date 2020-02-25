@@ -21,9 +21,13 @@ To start using the Doorkeeper Sequel ORM, add to your Gemfile:
 gem 'doorkeeper', '~> 4.3'
 gem 'doorkeeper-sequel', '~> 1.5'
 
-# For Doorkeeper 5.x
-gem 'doorkeeper', '~> 5.0'
+# For Doorkeeper 5.1
+gem 'doorkeeper', '~> 5.0' # or 5.1
 gem 'doorkeeper-sequel', '~> 2.0'
+
+# For Doorkeeper >= 5.2
+gem 'doorkeeper', '~> 5.2'
+gem 'doorkeeper-sequel', '~> 2.1'
 ```
 
 Or you can use git `master` branch for the latest gem version:
@@ -80,7 +84,7 @@ Thanks.
 
 Doorkeeper-sequel gem is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
-Copyright (c) 2016-2018 Nikita Bulai (bulajnikita@gmail.com).
+Copyright (c) 2016-2020 Nikita Bulai (bulajnikita@gmail.com).
 
 ---
 
