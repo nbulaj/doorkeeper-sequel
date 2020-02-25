@@ -53,7 +53,15 @@ module DoorkeeperSequel
       def confidential?
         confidential.present? && !!confidential
       end
-
+      
+      def plaintext_secret
+        if secret_strategy.allows_restoring_secrets?
+          secret_strategy.restore_secret(self, :secret)
+        else
+          @raw_secret
+        end
+      end
+      
       protected
 
       def validate_scopes_match_configured
