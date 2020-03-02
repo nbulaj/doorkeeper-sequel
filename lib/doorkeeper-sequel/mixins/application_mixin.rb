@@ -54,11 +54,20 @@ module DoorkeeperSequel
         confidential.present? && !!confidential
       end
 	  
-	  def renew_secret
+      def renew_secret
         @raw_secret = Doorkeeper::OAuth::Helpers::UniqueToken.generate
         secret_strategy.store_secret(self, :secret, @raw_secret)
       end
 
+      
+      def plaintext_secret
+        if secret_strategy.allows_restoring_secrets?
+          secret_strategy.restore_secret(self, :secret)
+        else
+          @raw_secret
+        end
+      end
+      
       protected
 
       def validate_scopes_match_configured
