@@ -21,9 +21,9 @@ module Doorkeeper
         columns.include?(:previous_refresh_token)
       end
 	  
-	  def polymorphic_resource_owner?
-		columns.include?(:resource_owner_type)
-	  end
+      def polymorphic_resource_owner?
+        columns.include?(:resource_owner_type)
+      end
     end
   end
 end

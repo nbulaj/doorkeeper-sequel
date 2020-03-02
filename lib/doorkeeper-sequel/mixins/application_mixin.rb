@@ -67,6 +67,10 @@ module DoorkeeperSequel
           @raw_secret
         end
       end
+	  
+      def authorized_for_resource_owner?(resource_owner)
+        Doorkeeper.configuration.authorize_resource_owner_for_client.call(self, resource_owner)
+      end
       
       protected
 

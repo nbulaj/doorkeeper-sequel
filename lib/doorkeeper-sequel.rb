@@ -14,7 +14,7 @@ require "doorkeeper-sequel/generators/application_owner_generator"
 require "doorkeeper-sequel/generators/migration_generator"
 require "doorkeeper-sequel/generators/previous_refresh_token_generator"
 require "doorkeeper-sequel/generators/confidential_applications_generator"
-require "doorkeeper-sequel/generators/previous_refresh_token_generator"
+require "doorkeeper-sequel/generators/polymorphic_resource_owner_generator"
 
 require "doorkeeper-sequel/mixins/concerns/sequel_compat"
 require "doorkeeper-sequel/mixins/access_token_mixin"
