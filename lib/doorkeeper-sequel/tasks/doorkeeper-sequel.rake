@@ -26,5 +26,10 @@ namespace :doorkeeper_sequel do
     task :confidential_applications do
       DoorkeeperSequel::ConfidentialApplicationsGenerator.start
     end
+
+    desc "Add resource owner type to Access tokens and grants"
+    task :resource_owner_type do
+      DoorkeeperSequel::PolymorphicResourceOwnerGenerator.start
+    end
   end
 end

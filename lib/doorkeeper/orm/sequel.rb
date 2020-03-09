@@ -13,6 +13,7 @@ module Doorkeeper
         ::Sequel::Model.require_valid_table = false
         ::Sequel::Model.strict_param_setting = false
         ::Sequel::Model.plugin :json_serializer
+        ::Sequel::Model.plugin :polymorphic
 
         begin
           require "doorkeeper/orm/sequel/access_grant"

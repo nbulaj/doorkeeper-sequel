@@ -28,7 +28,8 @@ DB.create_table :oauth_access_grants do
   primary_key :id
   column :application_id, Integer
 
-  column :resource_owner_id, Integer, null: false
+  column :resource_owner_id, Integer, null: false, index: true
+  column :resource_owner_type, String, index: true
 
   column :token, String, size: 255, null: false, index: { unique: true }
   column :expires_in, Integer, null: false
@@ -46,6 +47,7 @@ DB.create_table :oauth_access_tokens do
   column :application_id, Integer
 
   column :resource_owner_id, Integer, index: true
+  column :resource_owner_type, String, index: true
 
   # If you use a custom token generator you may need to change this column
   # from string to text, so that it accepts tokens larger than 255

@@ -21,7 +21,8 @@ Sequel.migration do
       primary_key :id
       foreign_key :application_id, :oauth_applications, null: false, on_delete: :cascade
 
-      column :resource_owner_id, Integer, null: false
+      column :resource_owner_id, Integer, null: false, index: true
+      column :resource_owner_type, String, null: false, index: true
 
       column :token, String, size: 255, null: false, index: { unique: true }
       column :expires_in, Integer, null: false
@@ -36,6 +37,7 @@ Sequel.migration do
       foreign_key :application_id, :oauth_applications, null: false, on_delete: :cascade
 
       column :resource_owner_id, Integer, index: true
+      column :resource_owner_type, String, index: true
 
       # If you use a custom token generator you may need to change this column
       # from string to text, so that it accepts tokens larger than 255

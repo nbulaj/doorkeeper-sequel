@@ -53,6 +53,12 @@ module DoorkeeperSequel
       def confidential?
         confidential.present? && !!confidential
       end
+	  
+      def renew_secret
+        @raw_secret = Doorkeeper::OAuth::Helpers::UniqueToken.generate
+        secret_strategy.store_secret(self, :secret, @raw_secret)
+      end
+
       
       def plaintext_secret
         if secret_strategy.allows_restoring_secrets?
@@ -60,6 +66,10 @@ module DoorkeeperSequel
         else
           @raw_secret
         end
+      end
+	  
+      def authorized_for_resource_owner?(resource_owner)
+        Doorkeeper.configuration.authorize_resource_owner_for_client.call(self, resource_owner)
       end
       
       protected
