@@ -28,7 +28,7 @@ namespace :doorkeeper_sequel do
     end
 
     desc "Add resource owner type to Access tokens and grants"
-    task :resource_owner_type do
+    task :polymorphic_resource_owner do
       DoorkeeperSequel::PolymorphicResourceOwnerGenerator.start
     end
   end
