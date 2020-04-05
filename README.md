@@ -28,6 +28,10 @@ gem 'doorkeeper-sequel', '~> 2.0'
 # For Doorkeeper >= 5.2
 gem 'doorkeeper', '~> 5.2'
 gem 'doorkeeper-sequel', '~> 2.1'
+
+# For Doorkeeper >= 5.3
+gem 'doorkeeper', '~> 5.3'
+gem 'doorkeeper-sequel', '~> 2.2'
 ```
 
 Or you can use git `master` branch for the latest gem version:

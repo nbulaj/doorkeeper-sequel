@@ -40,6 +40,20 @@ module DoorkeeperSequel
       def exists?
         !empty?
       end
+	  
+      def with_lock
+        return yield if @_tr_is_locked
+        @_tr_is_locked = true
+      
+        begin
+          db.transaction do
+            lock!
+            yield
+          end
+        ensure
+          @_tr_is_locked = false
+        end
+      end
 
       alias_method :exist?, :exists?
     end
