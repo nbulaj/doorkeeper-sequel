@@ -47,6 +47,7 @@ desc "Update Git submodules."
 task :update_submodules do
   ExtensionIntegrator.init_submodule! if Dir["doorkeeper/*"].empty?
   `git submodule foreach git pull origin master`
+  `git add doorkeeper`
 end
 
 task :copy_and_run_doorkeeper_specs do
