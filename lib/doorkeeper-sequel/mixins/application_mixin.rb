@@ -58,8 +58,20 @@ module DoorkeeperSequel
         @raw_secret = Doorkeeper::OAuth::Helpers::UniqueToken.generate
         secret_strategy.store_secret(self, :secret, @raw_secret)
       end
-
-      
+	  	  
+      def as_json(options = {})
+        if (respond_to?(:owner) && owner && owner == options[:current_resource_owner]) ||
+           options[:as_owner]
+          hash = JSON.parse(to_json, symbolize_names: false)
+        else
+          only = extract_serializable_attributes(options)
+          # TODO: Write our own serializer for Hash		  
+          hash = JSON.parse(to_json(options.merge(only: only)), symbolize_names: false)
+        end
+        hash["secret"] = plaintext_secret if hash.key?("secret")
+        hash
+      end
+	  
       def plaintext_secret
         if secret_strategy.allows_restoring_secrets?
           secret_strategy.restore_secret(self, :secret)
@@ -136,7 +148,27 @@ module DoorkeeperSequel
     end
 
     private
-
+	
+    def extract_serializable_attributes(options = {})
+      opts = options.try(:dup) || {}
+      only = Array.wrap(opts[:only]).map(&:to_s)
+    
+      only = if only.blank?
+               serializable_attributes
+             else
+               only & serializable_attributes
+             end
+    
+      only -= Array.wrap(opts[:except]).map(&:to_s) if opts.key?(:except)
+      only.uniq
+    end
+	
+    def serializable_attributes
+      attributes = %w[id name created_at]
+      attributes << "uid" unless confidential?
+      attributes
+    end
+	
     def has_scopes?
       Doorkeeper::Application.columns.include?("scopes")
     end
