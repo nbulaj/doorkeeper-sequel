@@ -16,7 +16,7 @@ gem "sequel", ">= 4.0"
 gem "sequel_polymorphic"
 
 gem "bcrypt", "~> 3.1"
-gem "doorkeeper", ">= 4.0.0", "< 5.3"
+gem "doorkeeper", ">= 4.0.0", "< 5.5"
 gem "rails", "~> 5.0"
 
 group :test do
