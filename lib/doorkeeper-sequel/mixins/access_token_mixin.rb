@@ -200,7 +200,7 @@ module DoorkeeperSequel
         end
       end
     end
-
+	
     # It indicates whether the tokens have the same credential
     def same_credential?(access_token)
       application_id == access_token.application_id &&

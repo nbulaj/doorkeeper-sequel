@@ -26,11 +26,14 @@ module Doorkeeper
       end
     end
 
-    def to_json(options = nil)
-      hash = to_hash.dup
-      hash.delete(:secret)
-      hash.merge(secret: plaintext_secret)
-        .to_json(options)
+    def to_json(options = {})
+      json = super(options)
+      hash = JSON.parse(json, symbolize_names: false)
+      if hash.key?("secret")
+        hash["secret"] = plaintext_secret
+        json = hash.to_json
+      end
+      json
     end
 
     def self.authorized_for(resource_owner)
