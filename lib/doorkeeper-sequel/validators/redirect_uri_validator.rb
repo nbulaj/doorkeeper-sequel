@@ -48,6 +48,7 @@ module DoorkeeperSequel
           secured_uri: invalid_ssl_uri?(uri),
           forbidden_uri: forbidden_uri?(uri),
           unspecified_scheme: unspecified_scheme?(uri),
+          unspecified_host: unspecified_host?(uri),
           relative_uri: relative_uri?(uri),
         }.each do |error, condition|
           add_error(attribute, error) if condition
@@ -58,6 +59,11 @@ module DoorkeeperSequel
         return true if uri.opaque.present?
 
         %w[localhost].include?(uri.try(:scheme))
+      end
+	  
+	  
+      def unspecified_host?(uri)
+        uri.is_a?(URI::HTTP) && uri.host.nil?
       end
 
       def relative_uri?(uri)
